@@ -3,6 +3,9 @@ package com.example.a0b.move2dinerforuser.DTO;
 
 public class MenuListItem {
     private String foodName;
+    private String foodDescribe;
+    private int foodPrice;
+    private String foodStoragePath;
 
     public MenuListItem() {
     }
@@ -13,8 +16,20 @@ public class MenuListItem {
         this.foodPrice = foodPrice;
     }
 
-    private String foodDescribe;
-    private int foodPrice;
+    public MenuListItem(String foodName, String foodDescribe, int foodPrice, String foodStoragePath) {
+        this.foodName = foodName;
+        this.foodDescribe = foodDescribe;
+        this.foodPrice = foodPrice;
+        this.foodStoragePath = foodStoragePath;
+    }
+
+    public String getFoodStoragePath() {
+        return foodStoragePath;
+    }
+
+    public void setFoodStoragePath(String foodStoragePath) {
+        this.foodStoragePath = foodStoragePath;
+    }
 
     public void setFoodName(String name) {
         foodName = name;

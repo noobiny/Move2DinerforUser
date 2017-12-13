@@ -86,10 +86,12 @@ public class ActivityTruckInfo extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        System.gc();
         setContentView(R.layout.activity_truck_info);
         if (primaryKey == null) { //카카오톡 링크를 타고 온경우
             primaryKey = getIntent().getExtras().get("PrimaryKey").toString();
             System.out.println("체크 : " + primaryKey);
+
         }
         if (primaryKey == null) {
             Toast.makeText(
