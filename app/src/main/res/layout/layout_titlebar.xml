@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="#65B5A5"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Move To Diner"
+        android:textColor="#FFF"
+        android:textSize="20dp" />
+
+
+    <ImageView
+        android:id="@+id/iv_arrow_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:padding="10dp"
+        android:src="@drawable/ic_arrow_back"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/action_save_user_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:drawableTop="@drawable/ic_save"
+        android:drawableTint="#000"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="저장"
+        android:visibility="gone"/>
+</RelativeLayout>

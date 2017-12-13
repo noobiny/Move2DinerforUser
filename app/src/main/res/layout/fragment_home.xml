@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#D0D0D0"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/viewPagerIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:gravity="center">
+
+            <cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager
+                android:id="@+id/homeslider"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:fitsSystemWindows="true"
+                tools:listitem="@layout/viewpager_image" />
+
+            <LinearLayout
+                android:id="@+id/viewPagerCountDots"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="#FFF">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="영업중인 트럭"
+                    android:textColor="#65B5A5"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+                <Button
+                    android:id="@+id/btn_viewonsaletruck"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="#0000"
+                    android:text="전체보기 >"
+                    android:textColor="#5D5D5D" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="195dp"
+                android:layout_marginBottom="10dp"
+                android:background="#fff"
+                android:gravity="center_horizontal">
+
+                <com.example.a0b.move2dinerforuser.RecyclerViewEmptySupport
+                    android:id="@+id/recycler_onSaleTruck"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:background="#ffffff"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="20dp" />
+
+                <TextView
+                    android:id="@+id/empty_onsale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="영업 중인 트럭이 없습니다"
+                    android:textSize="17sp" />
+
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:background="#FFFFFF">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="인기 트럭"
+                    android:textColor="#65B5A5"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:background="#FFF"
+                android:gravity="center_horizontal">
+
+                <com.example.a0b.move2dinerforuser.RecyclerViewEmptySupport
+                    android:id="@+id/recycler_TruckInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#d0d0d0" />
+
+                <TextView
+                    android:id="@+id/empty_TruckInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="현재 등록된 트럭이 없습니다"
+                    android:textSize="17sp" />
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

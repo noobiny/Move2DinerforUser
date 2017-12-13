@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical"
+    tools:openDrawer="start">
+
+    <com.example.a0b.move2dinerforuser.CustomLinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#D0D0D0"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_titlebar" />
+
+        <com.example.a0b.move2dinerforuser.SwipeViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottomNavi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="1dp"
+            android:background="#F6F6F6"
+            app:itemIconTint="@drawable/tab_color_selector"
+            app:itemTextColor="@drawable/tab_color_selector"
+            app:menu="@menu/bottom_nav" />
+
+    </com.example.a0b.move2dinerforuser.CustomLinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

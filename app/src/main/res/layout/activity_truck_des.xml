@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#c1c0c0"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_titlebar" />
+
+        <Spinner
+            android:id="@+id/truckdes_spinnersort"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/bg_spinner"
+            android:entries="@array/trucksort" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.a0b.move2dinerforuser.RecyclerViewEmptySupport
+            android:id="@+id/recycler_TruckDes"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="35dp"
+            android:layout_height="match_parent"
+            android:background="#c1c0c0" />
+
+        <TextView
+            android:id="@+id/empty_TruckInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="현재 등록된 트럭이 없습니다"
+            android:textSize="25sp" />
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="-5dp"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id2" />
+    </RelativeLayout>
+</LinearLayout>

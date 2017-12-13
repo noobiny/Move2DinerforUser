@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="E-Mail 로그인"
+        android:textSize="50sp"
+        android:gravity="center"
+        android:layout_weight="2"
+        android:textColor="#65B5A5"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:layout_weight="1"
+        android:weightSum="1">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="0.6">
+
+            <EditText
+                android:id="@+id/edit_email"
+                style="@style/bg_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_email"
+                android:hint="Email"
+                android:inputType="textEmailAddress"
+                android:singleLine="true" />
+
+            <EditText
+                android:id="@+id/edit_password"
+                style="@style/bg_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_lock"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:layout_marginTop="10dp"
+                android:singleLine="true" />
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/btn_round_background"
+                android:backgroundTint="#65B5A5"
+                android:text="확인"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/btn_regi_member"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/btn_round_background"
+                android:backgroundTint="#404040"
+                android:text="회원 가입 하기"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

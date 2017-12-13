@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context="com.example.a0b.move2dinerforuser.ActivityOnSaleTruck"
+    tools:ignore="MergeRootFrame">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/layout_titlebar" />
+
+        <Spinner
+            android:id="@+id/onsale_spinnersort"
+            android:layout_width="90dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/bg_spinner"
+            android:entries="@array/onsaletrucksort" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.example.a0b.move2dinerforuser.RecyclerViewEmptySupport
+            android:id="@+id/recycler_onSaleTruck"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="35dp"
+            android:background="#d0d0d0"
+            >
+
+        </com.example.a0b.move2dinerforuser.RecyclerViewEmptySupport>
+
+        <TextView
+            android:id="@+id/empty_onsale"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="현재 영업중인 트럭이 없습니다"
+            android:textSize="25sp" />
+
+        <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="-5dp"
+            ads:adSize="SMART_BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

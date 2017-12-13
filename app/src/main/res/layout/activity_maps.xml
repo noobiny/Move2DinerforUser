@@ -1,0 +1,80 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/pickdistance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="지금 보고있는 지역은"
+                android:textColor="#000000"
+                android:textSize="13dp" />
+
+            <TextView
+                android:id="@+id/tv_currentlocation"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="#65B5A5"
+                android:textSize="25dp"
+
+                />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/spinnerdistance"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:drawableRight="@drawable/ic_arrow_drop_down_circle_black_24dp"
+            android:drawableTint="#65B5A5"
+            android:paddingBottom="8dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:paddingTop="8dp"
+            android:text="300m"
+            android:textColor="#000000"
+            android:textSize="16dp" />
+
+        <!--<Spinner-->
+        <!--android:id="@+id/spinnerdistance"-->
+        <!--android:layout_width="120dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:entries="@array/distance">-->
+        <!--</Spinner>-->
+
+
+    </RelativeLayout>
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/pickdistance"
+        tools:context="com.example.a0b.move2dinerforuser.ActivityMaps" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/mapindicator"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="#ffffff">
+
+    </android.support.v4.view.ViewPager>
+
+</RelativeLayout>

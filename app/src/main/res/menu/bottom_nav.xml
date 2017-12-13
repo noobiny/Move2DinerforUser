@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/btm_home"
+        android:icon="@drawable/icon_home"
+        android:title="새 소식"/>
+    <item
+        android:id="@+id/btm_search"
+        android:icon="@drawable/icon_truck"
+        android:title="트럭 찾기!"/>
+    <item
+        android:id="@+id/btm_others"
+        android:icon="@drawable/icon_others"
+        android:title="더 보기"/>
+</menu>

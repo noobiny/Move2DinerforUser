@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "826143959117",
+    "firebase_url": "https://movetodiner.firebaseio.com",
+    "project_id": "movetodiner",
+    "storage_bucket": "movetodiner.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:826143959117:android:a662a1e262be34fb",
+        "android_client_info": {
+          "package_name": "com.example.a0b.move2dinerforuser"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "826143959117-iq4cr8lqojptjo6547th261n685g0abe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.a0b.move2dinerforuser",
+            "certificate_hash": "ccab7da0bdca1c876669673dacb26a8af418842b"
+          }
+        },
+        {
+          "client_id": "826143959117-aptabi7hrojbdkdjv74r8557u5me1ait.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbfi3oHYgG76JJ6p2yC5ELOdfxzYLHCk4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "826143959117-aptabi7hrojbdkdjv74r8557u5me1ait.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

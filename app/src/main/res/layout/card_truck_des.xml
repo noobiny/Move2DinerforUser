@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/lay_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    app:cardBackgroundColor="#FFF"
+    app:cardCornerRadius="10dp">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFF"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/imgTruck"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:scaleType="fitXY"
+            app:layout_constraintDimensionRatio="H, 3:2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/sample_truck" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            app:layout_constraintTop_toBottomOf="@+id/imgTruck">
+
+            <LinearLayout
+                android:id="@+id/upperlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtTruckName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="스윗 츄러스"
+                    android:textColor="#65B5A5"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/lowerlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/upperlayout">
+
+                <ImageView
+                    android:id="@+id/iv_card_favorite"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="-5dp"
+                    android:padding="5dp"
+                    android:src="@drawable/ic_favorite_border_mint2_24dp" />
+
+                <TextView
+                    android:id="@+id/tv_card_favcount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="-5dp"
+                    android:layout_toRightOf="@id/iv_card_favorite"
+                    android:textColor="#000" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lowerlayout"
+                android:layout_marginTop="-5dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_marginTop="-5dp"
+                android:paddingTop="3dp">
+
+                <TextView
+                    android:id="@+id/truckrow_onbusi_off"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="-2dp"
+                    android:background="@drawable/btn_round_background"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="3dp"
+                    android:paddingTop="3dp"
+                    android:text="영업중" />
+
+                <TextView
+                    android:id="@+id/truckrow_onbusi_on"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="-2dp"
+                    android:background="@drawable/btn_round_background"
+                    android:backgroundTint="#0c0"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="3dp"
+                    android:paddingTop="3dp"
+                    android:text="영업중"
+                    android:textColor="#fff"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/truckrow_paycard_off"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="-2dp"
+                    android:background="@drawable/btn_round_background"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="3dp"
+                    android:text="카드결제" />
+
+                <TextView
+                    android:id="@+id/truckrow_paycard_on"
+                    android:layout_width="wrap_content"
+
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="-2dp"
+                    android:background="@drawable/btn_round_background"
+                    android:backgroundTint="#0c0"
+                    android:paddingBottom="3dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:paddingTop="3dp"
+                    android:text="카드결제"
+                    android:textColor="#fff"
+                    android:visibility="invisible" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

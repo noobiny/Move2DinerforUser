@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Move2DinerforUser</string>
+    <string name="facebook_app_id">1246540928825912</string>
+    <string name="fb_login_protocol_scheme">fb1246540928825912</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="banner_ad_unit_id">ca-app-pub-8609705965365501/4510306529</string>
+    <string name="banner_ad_unit_id2">ca-app-pub-8609705965365501/2201775757</string>
+
+
+    <string-array name="trucksort">
+        <item>기본순</item>
+        <item>평점순</item>
+    </string-array>
+
+    <string-array name="onsaletrucksort">
+        <item>거리순</item>
+        <item>평점순</item>
+    </string-array>
+
+
+</resources>
+
