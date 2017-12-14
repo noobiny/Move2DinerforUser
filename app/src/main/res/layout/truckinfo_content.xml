@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.a0b.move2dinerforuser.ActivityTruckInfo"
+    tools:showIn="@layout/activity_truck_info">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:background="#fff"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/animation_view"
+                    android:layout_width="88dp"
+                    android:layout_height="88dp"
+                    android:layout_marginBottom="-46dp"
+                    android:layout_marginLeft="-24dp"
+                    android:layout_marginTop="-24dp"
+                    android:visibility="invisible"
+                    app:lottie_autoPlay="false"
+                    app:lottie_fileName="love_explosion.json"
+                    app:lottie_loop="false" />
+
+                <ImageView
+                    android:id="@+id/iv_truck_favorite"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:src="@drawable/ic_favorite_border_black_24dp" />
+
+                <TextView
+                    android:id="@+id/tv_truck_favcount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/iv_truck_favorite"
+                    android:layout_marginVertical="10dp"
+                    android:layout_toEndOf="@+id/iv_truck_favorite"
+                    android:layout_toRightOf="@+id/iv_truck_favorite"
+                    android:background="#65B5A5"
+                    android:padding="1.5dp"
+                    android:textColor="#ffffff"
+                    android:textSize="10dp" />
+
+                <ImageView
+                    android:id="@+id/tv_truck_share"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="-39dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="-39dp"
+                    android:layout_toRightOf="@id/tv_truck_favcount"
+                    android:src="@drawable/kakaotalk_icon" />
+
+                <ImageView
+                    android:id="@+id/tv_truck_writereview"
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@id/tv_truck_share"
+                    android:src="@drawable/write_review"
+                    android:tint="#555555" />
+
+
+                <TextView
+                    android:id="@+id/tv_truck_cardoff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@id/busi_off"
+                    android:background="@drawable/btn_round_background"
+                    android:backgroundTint="@color/appColor"
+                    android:padding="5dp"
+                    android:text="카드결제"
+                    android:textColor="#ffffff"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:visibility="invisible"
+                    android:id="@+id/tv_truck_cardon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@id/busi_off"
+                    android:background="@drawable/btn_round_background"
+                    android:backgroundTint="@color/lightgrey"
+                    android:padding="5dp"
+                    android:text="카드결제"
+                    android:textColor="#ffffff"
+                    android:textSize="12dp" />
+
+                <ImageView
+                    android:id="@+id/busi_on"
+                    android:layout_width="38dp"
+                    android:layout_height="42dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@id/tv_truck_writereview"
+                    android:src="@drawable/ic_directions_open"
+                    android:tint="@color/green"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:id="@+id/busi_off"
+                    android:layout_width="38dp"
+                    android:layout_height="42dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@id/tv_truck_writereview"
+                    android:src="@drawable/ic_directions_open"
+                    android:tint="@color/lightgrey" />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="상세 정보 : "
+                android:textColor="#65B5A5"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_truck_des"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="#fff"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="영업 시간 : "
+                android:textColor="#65B5A5"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_truck_busiHours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#000000"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="#FFF"
+            android:padding="5dp"
+            android:text="메뉴"
+            android:textColor="#65B5A5"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp"
+            android:background="#FFF">
+
+            <com.example.a0b.move2dinerforuser.RecyclerViewEmptySupport
+                android:id="@+id/recycle_menuinfo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+                android:id="@+id/empty_menu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="등록된 메뉴가 없습니다"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="#FFF"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="사용자 리뷰"
+                android:textColor="#65B5A5"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/btn_truck_review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="평가하기 >"
+                android:textSize="18sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="7dp"
+            android:background="#FFF">
+
+            <com.example.a0b.move2dinerforuser.RecyclerViewEmptySupport
+                android:id="@+id/recycler_review"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <TextView
+
+                android:id="@+id/empty_review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="등록된 리뷰가 없습니다"
+                android:textSize="20sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="#FFF"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/textView99"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="최근 영업장소 : "
+                android:textColor="#65B5A5"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/truckinfo_recent_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="최근 위치가 없습니다."
+                android:textColor="#000000"
+                android:textSize="12dp" />
+        </LinearLayout>
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

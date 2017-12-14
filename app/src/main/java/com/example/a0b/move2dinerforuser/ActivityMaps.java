@@ -153,6 +153,10 @@ public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback
         mapPagerAdapter = new MapPagerAdapter(this, itemTruckDes);
         mapindicator.setAdapter(mapPagerAdapter);
 
+        mapindicator.setClipToPadding(false);
+        mapindicator.setPageMargin(20);
+        mapindicator.setPadding(40,0,40,0);
+
     }
 
 

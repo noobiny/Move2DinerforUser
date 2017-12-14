@@ -47,9 +47,12 @@ dependencies {
     compile 'com.airbnb.android:lottie:2.1.0'
     compile 'jp.wasabeef:glide-transformations:1.0.6@aar'
     compile group: 'com.kakao.sdk', name: 'kakaolink', version: project.KAKAO_SDK_VERSION
+    implementation 'com.github.rubensousa:gravitysnaphelper:1.5'
+    compile 'com.xw.repo:bubbleseekbar:3.12-lite'
     compile('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
         exclude module: 'support-v4'
     }
+    compile 'com.github.todou:appbarspring:1.0.4'
     testCompile 'junit:junit:4.12'
 }
 

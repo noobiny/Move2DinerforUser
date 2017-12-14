@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="com.github.todou:appbarspring-1.0.4">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/appbarspring-1.0.4.aar/be1b29230ccf33e08e8ba91898c4439a/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/appbarspring-1.0.4.aar/be1b29230ccf33e08e8ba91898c4439a/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.todou/appbarspring/1.0.4/503a417b52d18e716e38a41b892f163b9f4ceccd/appbarspring-1.0.4-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

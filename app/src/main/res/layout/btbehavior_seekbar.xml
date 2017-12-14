@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#eeeeee"
@@ -20,43 +21,67 @@
         android:gravity="center_horizontal"
         android:text="300m"
         android:textColor="#000000"
-        android:textSize="24sp" />
+        android:textSize="28sp" />
 
     <RelativeLayout
+        android:id="@+id/relative_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        >
+        android:paddingRight="10dp">
 
-        <TextView
+        <!--<TextView-->
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="300m" />
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:text="300m" />-->
 
-        <SeekBar
-            android:id="@+id/seekbar_distance"
+
+        <com.xw.repo.BubbleSeekBar
+            android:id="@+id/bubbleseekbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginBottom="30dp"
-            android:layout_marginLeft="40dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginTop="20dp"
-            android:max="4"
-            android:progressDrawable="@drawable/red_scrubber_progress"
-            android:solidColor="#fffff0"
-            android:thumb="@drawable/red_scrubber_control" />
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            app:bsb_auto_adjust_section_mark="true"
+            app:bsb_max="4"
+            app:bsb_progress="0"
+            app:bsb_second_track_color="@color/lightgrey"
+            app:bsb_section_count="4"
+            app:bsb_section_text_position="below_section_mark"
+            app:bsb_show_section_mark="false"
+            app:bsb_thumb_color="@color/appColor"
+            app:bsb_thumb_radius="10dp"
+            app:bsb_track_color="@color/lightgrey"
+            app:bsb_track_size="5dp"
 
-        <TextView
 
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:text="5km" />
+            />
+
+        <!--<SeekBar
+            <!-android:id="@+id/seekbar_distance"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:layout_marginBottom="30dp"-->
+        <!--android:layout_marginLeft="40dp"-->
+        <!--android:layout_marginRight="40dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--android:max="4"-->
+        <!--android:progressDrawable="@drawable/red_scrubber_progress"-->
+        <!--android:solidColor="#fffff0"-->
+        <!--android:thumb="@drawable/red_scrubber_control" />-->
+
+        <!--<TextView-->
+
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:text="5km" />-->
     </RelativeLayout>
 </LinearLayout>

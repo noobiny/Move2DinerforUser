@@ -30,10 +30,12 @@ public class ActivityMain extends AppCompatActivity
 
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         BaseApplication.getInstance().progressON(ActivityMain.this, "데이터 로딩중입니다");
         viewPager = (SwipeViewPager) findViewById(R.id.viewPager);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavi);

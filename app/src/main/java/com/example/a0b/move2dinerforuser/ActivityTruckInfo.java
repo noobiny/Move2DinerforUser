@@ -1,16 +1,12 @@
 package com.example.a0b.move2dinerforuser;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
@@ -30,8 +27,6 @@ import com.example.a0b.move2dinerforuser.Adapter.MenuListAdapter;
 import com.example.a0b.move2dinerforuser.DTO.ItemTruckDes;
 import com.example.a0b.move2dinerforuser.DTO.MenuListItem;
 import com.example.a0b.move2dinerforuser.DTO.ReviewListItem;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,28 +36,34 @@ import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
-import com.kakao.kakaolink.AppActionBuilder;
-import com.kakao.kakaolink.AppActionInfoBuilder;
-import com.kakao.kakaolink.KakaoLink;
-import com.kakao.kakaolink.KakaoTalkLinkMessageBuilder;
+import com.kakao.kakaolink.v2.KakaoLinkResponse;
+import com.kakao.kakaolink.v2.KakaoLinkService;
+import com.kakao.message.template.ButtonObject;
+import com.kakao.message.template.ContentObject;
+import com.kakao.message.template.FeedTemplate;
+import com.kakao.message.template.LinkObject;
+import com.kakao.message.template.SocialObject;
+import com.kakao.network.ErrorResult;
+import com.kakao.network.callback.ResponseCallback;
+import com.kakao.util.helper.log.Logger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 
 import static com.example.a0b.move2dinerforuser.ActivityIntro.truckdatabase;
+import static com.kakao.message.template.LinkObject.newBuilder;
 
 
 public class ActivityTruckInfo extends AppCompatActivity {
     private int favcount;
-    private ImageView img_thumbnail, iv_truck_favorite, tv_truck_share, tv_truck_writereview;
+    private ImageView img_thumbnail, iv_truck_favorite, tv_truck_share, tv_truck_writereview, busi_on, busi_off;
     private String primaryKey;
     private Boolean isHeart;
-    private ScrollView truckinfo_scrollview;
     private ViewPager img_slider;
-    private TextView btn_truck_review, sliderIndicator, tv_truck_favcount, truckinfo_recent_location, checkonbusiness, tv_truck_busiHours, tv_truck_des, tv_truck_name;
+    private TextView btn_truck_review, sliderIndicator, tv_truck_favcount, truckinfo_recent_location, tv_truck_busiHours, tv_truck_des,
+            tv_truck_cardoff, tv_truck_cardon;
 
     private ArrayList<String> slideImages = new ArrayList<>();
 
@@ -87,18 +88,23 @@ public class ActivityTruckInfo extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         System.gc();
-        setContentView(R.layout.activity_truck_info);
+
+        primaryKey = getIntent().getStringExtra("PrimaryKey");
+
         if (primaryKey == null) { //카카오톡 링크를 타고 온경우
-            primaryKey = getIntent().getExtras().get("PrimaryKey").toString();
-            System.out.println("체크 : " + primaryKey);
+
+            Uri uri = getIntent().getData();
+            primaryKey = uri.getQueryParameter("PrimaryKey");
 
         }
+        System.out.println("체크 : " + primaryKey);
         if (primaryKey == null) {
             Toast.makeText(
                     this, "경로가 잘못되었습니다", Toast.LENGTH_SHORT).show();
             return;
         }
-        primaryKey = getIntent().getStringExtra("PrimaryKey");
+
+        setContentView(R.layout.activity_truck_info);
 
 
         BaseApplication.getInstance().progressON(ActivityTruckInfo.this, "트럭 정보 로딩중");
@@ -115,11 +121,6 @@ public class ActivityTruckInfo extends AppCompatActivity {
 
         connectEvent();
 
-        truckinfo_scrollview.post(new Runnable() {
-            public void run() {
-                truckinfo_scrollview.scrollTo(0, 0);
-            }
-        });
 
     }
 
@@ -129,17 +130,35 @@ public class ActivityTruckInfo extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 itemTruckDes = dataSnapshot.getValue(ItemTruckDes.class);
 
-                //영업 중인지 체크 & 최근 장소 표시
+//                //영업 중인지 체크 & 최근 장소 표시
                 if (itemTruckDes.getRecentAddress() != null) {
                     truckinfo_recent_location.setText(itemTruckDes.getRecentAddress());
 
                     if (itemTruckDes.getOnBusiness()) {
-                        checkonbusiness.setText("영업중!!");
-                        checkonbusiness.setTextColor(Color.RED);
+
+                        busi_on.setVisibility(View.VISIBLE);
+                        busi_off.setVisibility(View.INVISIBLE);
                     } else {
-                        checkonbusiness.setText("");
+                        busi_on.setVisibility(View.INVISIBLE);
+                        busi_off.setVisibility(View.VISIBLE);
                     }
                 }
+
+                //카드체크
+                if(itemTruckDes.getPayCard()==true){
+                    tv_truck_cardoff.setVisibility(View.INVISIBLE);
+                    tv_truck_cardon.setVisibility(View.VISIBLE);
+
+                }else{
+                    tv_truck_cardoff.setVisibility(View.VISIBLE);
+                    tv_truck_cardon.setVisibility(View.INVISIBLE);
+                }
+
+                android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
+                setSupportActionBar(toolbar);
+                toolbar.setTitle(itemTruckDes.getTruckName());
+                toolbar.setBackgroundColor(getResources().getColor(R.color.appColor));
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
                 loadImageSlide(); //이미지 슬라이드 가져오기
                 settingData(); //초기 세팅
@@ -154,17 +173,23 @@ public class ActivityTruckInfo extends AppCompatActivity {
     }
 
     private void initView() {
+
+        tv_truck_cardoff=findViewById(R.id.tv_truck_cardoff);
+        tv_truck_cardon=findViewById(R.id.tv_truck_cardon);
+
+        busi_on = (ImageView) findViewById(R.id.busi_on);
+        busi_off = (ImageView) findViewById(R.id.busi_off);
+
         tv_truck_writereview = (ImageView) findViewById(R.id.tv_truck_writereview);
         tv_truck_share = (ImageView) findViewById(R.id.tv_truck_share);
-        checkonbusiness = (TextView) findViewById(R.id.checkonbusiness);
+//        checkonbusiness = (TextView) findViewById(R.id.checkonbusiness);
         truckinfo_recent_location = (TextView) findViewById(R.id.truckinfo_recent_location);
         tv_truck_favcount = (TextView) findViewById(R.id.tv_truck_favcount);
-        truckinfo_scrollview = (ScrollView) findViewById(R.id.truckinfo_scrollview);
         img_thumbnail = (ImageView) findViewById(R.id.img_thumbnail);
         sliderIndicator = (TextView) findViewById(R.id.sliderIndicator);
         img_slider = (ViewPager) findViewById(R.id.img_slider);
         btn_truck_review = (TextView) findViewById(R.id.btn_truck_review);
-        tv_truck_name = (TextView) findViewById(R.id.tv_truck_name);
+//        tv_truck_name = (TextView) findViewById(R.id.tv_truck_name);
         recycler_review = (RecyclerViewEmptySupport) findViewById(R.id.recycler_review);
         recycle_menuinfo = (RecyclerViewEmptySupport) findViewById(R.id.recycle_menuinfo);
         iv_truck_favorite = (ImageView) findViewById(R.id.iv_truck_favorite);
@@ -181,6 +206,7 @@ public class ActivityTruckInfo extends AppCompatActivity {
         recycle_menuinfo.setLayoutManager(new LinearLayoutManager(this));
         recycle_menuinfo.setAdapter(menuAdapter);
         recycle_menuinfo.setEmptyView(findViewById(R.id.empty_menu));
+
 
     }
 
@@ -316,9 +342,9 @@ public class ActivityTruckInfo extends AppCompatActivity {
 
     private void settingData() {
 
-        CustomTitlebar ct = new CustomTitlebar(this, itemTruckDes.getTruckName());
-        ct.iv_arrow_back.setVisibility(View.VISIBLE);
-        tv_truck_name.setText(itemTruckDes.getTruckName());
+//        CustomTitlebar ct = new CustomTitlebar(this, itemTruckDes.getTruckName());
+//        ct.iv_arrow_back.setVisibility(View.VISIBLE);
+//        tv_truck_name.setText(itemTruckDes.getTruckName());
         tv_truck_des.setText(itemTruckDes.getTruckDes());
         tv_truck_busiHours.setText(itemTruckDes.getBusiInfo());
 
@@ -421,7 +447,6 @@ public class ActivityTruckInfo extends AppCompatActivity {
                     reviewListItems.add(snapshot.child(primaryKey).getValue(ReviewListItem.class));
                     reviewKeys.add(snapshot.child(primaryKey).getKey());
                 }
-                //날짜 정렬로 보여주기 -> 날짜 프로퍼티는 ReviewListItem클래스에서  compareTo 오버라이딩
 
                 for (int i = 0; i < reviewListItems.size(); i++) {
                     reviewListItems.get(i).setKey(reviewKeys.get(i));
@@ -435,12 +460,6 @@ public class ActivityTruckInfo extends AppCompatActivity {
                 }
 
                 reviewAdapter.notifyDataSetChanged();
-                //리사이클러뷰쪽으로 스크롤이 내려감 -> 스크롤 위로 올리기위해서 이 코드 써줘야함
-                truckinfo_scrollview.post(new Runnable() {
-                    public void run() {
-                        truckinfo_scrollview.scrollTo(0, 0);
-                    }
-                });
             }
 
             @Override
@@ -497,24 +516,65 @@ public class ActivityTruckInfo extends AppCompatActivity {
 
 
     private void shareKakao() {
-        try {
 
-            final KakaoLink kakaoLink = KakaoLink.getKakaoLink(this);
-            final KakaoTalkLinkMessageBuilder kakaoBuilder = kakaoLink.createKakaoTalkLinkMessageBuilder();
+        String scheme = getResources().getString(R.string.kakao_scheme);
+        String host = getResources().getString(R.string.kakaolink_host);
 
-            kakaoBuilder.addText("\"" + itemTruckDes.getTruckName() + "\"\nMove2Diner");
-            kakaoBuilder.addExtra("PrimaryKey", primaryKey);
-            String url = itemTruckDes.getThumbnail();
-            kakaoBuilder.addImage(url, 160, 160);
-            kakaoBuilder.addAppLink("PrimaryKey");
-            kakaoBuilder.addAppButton("Move2DinerforUser 앱에서 실행");
+//        FeedTemplate params = FeedTemplate
+//                .newBuilder(ContentObject.newBuilder("디저트 사진",
+//                        "http://mud-kage.kakao.co.kr/dn/NTmhS/btqfEUdFAUf/FjKzkZsnoeE4o19klTOVI1/openlink_640x640s.jpg",
+//                        LinkObject.newBuilder().setWebUrl("https://developers.kakao.com")
+//                                .setMobileWebUrl("https://developers.kakao.com").build())
+//                        .setDescrption("아메리카노, 빵, 케익")
+//                        .build())
+//                .setSocial(SocialObject.newBuilder().setLikeCount(10).setCommentCount(20)
+//                        .setSharedCount(30).setViewCount(40).build())
+//                .addButton(new ButtonObject("웹에서 보기", LinkObject.newBuilder().setWebUrl("https://developers.kakao.com").setMobileWebUrl("https://developers.kakao.com").build()))
+//                .addButton(new ButtonObject("앱에서 보기", LinkObject.newBuilder()
+//                        .setWebUrl("https://developers.kakao.com")
+//                        .setMobileWebUrl("https://developers.kakao.com")
+//                        .build()))
+//                .build();
+//
+//        KakaoLinkService.getInstance().sendDefault(this, params, new ResponseCallback<KakaoLinkResponse>() {
+//            @Override
+//            public void onFailure(ErrorResult errorResult) {
+//                Logger.e(errorResult.toString());
+//            }
+//
+//            @Override
+//            public void onSuccess(KakaoLinkResponse result) {
+//
+//            }
+//        });
 
-            kakaoLink.sendMessage(kakaoBuilder, this);
+//
+        FeedTemplate params = FeedTemplate
+                .newBuilder(ContentObject.newBuilder("\"" + itemTruckDes.getTruckName() + "\"",
+                        itemTruckDes.getThumbnail(),
+                        newBuilder().setWebUrl("https://developers.kakao.com")
+                                .setMobileWebUrl("https://developers.kakao.com").build())
+                        .setDescrption("최근장소 : " + itemTruckDes.getRecentAddress())
+                        .build())
+                .setSocial(SocialObject.newBuilder().setLikeCount(itemTruckDes.getStarCount()).build())
+                .addButton(new ButtonObject("앱에서 보기", newBuilder()
+                        .setMobileWebUrl(scheme + "://" + host)
+                        .setAndroidExecutionParams("PrimaryKey=" + primaryKey)
+                        .build()))
+                .build();
 
-        } catch (Exception e) {
+        KakaoLinkService.getInstance().sendDefault(this, params, new ResponseCallback<KakaoLinkResponse>() {
+            @Override
+            public void onFailure(ErrorResult errorResult) {
+                Logger.e(errorResult.toString());
+            }
 
-            e.printStackTrace();
-        }
+            @Override
+            public void onSuccess(KakaoLinkResponse result) {
+                System.out.println("카카오톡 공유 성공");
+            }
+        });
+
     }
 
     private boolean appInstalledOrNot(String uri) {

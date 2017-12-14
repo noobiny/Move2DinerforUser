@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.LinearSnapHelper;
+import android.support.v7.widget.SnapHelper;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +25,7 @@ import com.example.a0b.move2dinerforuser.BaseApplication;
 import com.example.a0b.move2dinerforuser.DTO.ItemTruckDes;
 import com.example.a0b.move2dinerforuser.R;
 import com.example.a0b.move2dinerforuser.RecyclerViewEmptySupport;
+import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -39,19 +43,19 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
     private ArrayList<String> images = new ArrayList<>();
 
-    private Button btn_viewonsaletruck;
+//    private Button btn_viewonsaletruck;
 
     private ArrayList<ItemTruckDes> bestTrucks = new ArrayList<>();
     private ArrayList<String> bestTruckKeys = new ArrayList<>();
     private RecyclerViewEmptySupport bestRecycler;
-    private AdapterTruckRecycle bestAdapter;
+    private AdapterTruckIntro bestAdapter;
     private LinearLayoutManager bestManager;
 
-    private AdapterTruckIntro onSaleAdapter;
-    private LinearLayoutManager onSaleManager;
-    private RecyclerViewEmptySupport recycler_onSaleTruck;
-    private ArrayList<ItemTruckDes> onSaleTrucks = new ArrayList<>();
-    private ArrayList<String> onSaleTruckKeys = new ArrayList<>();
+//    private AdapterTruckIntro onSaleAdapter;
+//    private LinearLayoutManager onSaleManager;
+//    private RecyclerViewEmptySupport recycler_onSaleTruck;
+//    private ArrayList<ItemTruckDes> onSaleTrucks = new ArrayList<>();
+//    private ArrayList<String> onSaleTruckKeys = new ArrayList<>();
 
     private AutoScrollViewPager homeslider;
     private LinearLayout pager_indicator;
@@ -75,74 +79,79 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
         homeslider = (AutoScrollViewPager) rootView.findViewById(R.id.homeslider);
         bestRecycler = (RecyclerViewEmptySupport) rootView.findViewById(R.id.recycler_TruckInfo);
-        recycler_onSaleTruck = (RecyclerViewEmptySupport) rootView.findViewById(R.id.recycler_onSaleTruck);
+//        recycler_onSaleTruck = (RecyclerViewEmptySupport) rootView.findViewById(R.id.recycler_onSaleTruck);
         pager_indicator = (LinearLayout) rootView.findViewById(R.id.viewPagerCountDots);
-        btn_viewonsaletruck = (Button) rootView.findViewById(R.id.btn_viewonsaletruck);
+//        btn_viewonsaletruck = (Button) rootView.findViewById(R.id.btn_viewonsaletruck);
 
 
         //startTime 역순으로 정렬렬
-        onSaleAdapter = new AdapterTruckIntro(onSaleTrucks, onSaleTruckKeys, getContext());
-        onSaleManager = new LinearLayoutManager(getContext());
-        onSaleManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        recycler_onSaleTruck.setLayoutManager(onSaleManager);
-        recycler_onSaleTruck.setEmptyView(rootView.findViewById(R.id.empty_onsale));
-        recycler_onSaleTruck.setAdapter(onSaleAdapter);
+//        onSaleAdapter = new AdapterTruckIntro(onSaleTrucks, onSaleTruckKeys, getContext());
+//        onSaleManager = new LinearLayoutManager(getContext());
+//        onSaleManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+//        recycler_onSaleTruck.setLayoutManager(onSaleManager);
+//        recycler_onSaleTruck.setEmptyView(rootView.findViewById(R.id.empty_onsale));
+//        recycler_onSaleTruck.setAdapter(onSaleAdapter);
 
-        bestAdapter = new AdapterTruckRecycle(bestTruckKeys, getContext(), bestTrucks);
-        bestManager = new LinearLayoutManager(getContext());
+
+        bestAdapter = new AdapterTruckIntro(bestTrucks, bestTruckKeys, getContext());
+        bestManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         bestManager.setAutoMeasureEnabled(true);
 
         //파베에서 내림차순 지원안해서 매니저 거꾸로
         bestManager.setReverseLayout(true);
         bestManager.setStackFromEnd(true);
 
+//        bestRecycler.setLayoutManager(bestManager);
+
         bestRecycler.setLayoutManager(bestManager);
+        SnapHelper snapHelper = new GravitySnapHelper(Gravity.START);
+        snapHelper.attachToRecyclerView(bestRecycler);
         bestRecycler.setEmptyView(rootView.findViewById(R.id.empty_TruckInfo));
         bestRecycler.setAdapter(bestAdapter);
 
-        btn_viewonsaletruck.setOnClickListener(this);
+//        btn_viewonsaletruck.setOnClickListener(this);
 
         imageSliderAdapter = new ImageSliderAdapter(getContext(), images);
 
         setItemsList();
 
-        setOnSaleTrucks();
+//        setOnSaleTrucks();
 
         setHomeSlider();
 
         return rootView;
     }
 
-    private void setOnSaleTrucks() {
-        Query query = database.getReference().child("trucks").child("info");
-        query.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                int count = 0;
-                onSaleTrucks.clear();
-                onSaleTruckKeys.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    ItemTruckDes itemTruckDes = snapshot.getValue(ItemTruckDes.class);
-
-                    if (itemTruckDes.getOnBusiness() == false)
-                        continue;
-
-                    onSaleTrucks.add(itemTruckDes);
-                    onSaleTruckKeys.add(snapshot.getKey());
-                    if (count++ == 3) {
-                        break;
-                    }
-                }
-                onSaleAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-    }
+//    private void setOnSaleTrucks() {
+//        Query query = database.getReference().child("trucks").child("info");
+//        query.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(DataSnapshot dataSnapshot) {
+//                int count = 0;
+//                onSaleTrucks.clear();
+//                onSaleTruckKeys.clear();
+//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+//                    ItemTruckDes itemTruckDes = snapshot.getValue(ItemTruckDes.class);
+//
+//                    if (itemTruckDes.getOnBusiness() == false)
+//                        continue;
+//
+//                    onSaleTrucks.add(itemTruckDes);
+//                    onSaleTruckKeys.add(snapshot.getKey());
+//                    if (count++ == 3) {
+//                        break;
+//                    }
+//                }
+//                onSaleAdapter.notifyDataSetChanged();
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError databaseError) {
+//
+//            }
+//        });
+//    }
 
     private void setHomeSlider() {
         Query sliderimages = database.getReference().child("homesliderimages");
@@ -236,9 +245,9 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_viewonsaletruck:
-                startActivity(new Intent(getContext(), ActivityOnSaleTruck.class));
-                break;
+//            case R.id.btn_viewonsaletruck:
+//                startActivity(new Intent(getContext(), ActivityOnSaleTruck.class));
+//                break;
         }
     }
 

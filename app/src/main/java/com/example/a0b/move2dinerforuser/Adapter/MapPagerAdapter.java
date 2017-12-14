@@ -21,6 +21,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 
@@ -63,14 +65,26 @@ public class MapPagerAdapter extends PagerAdapter {
         TextView mapinfo_index = (TextView) itemView.findViewById(R.id.mapinfo_index);
         TextView mapinfo_truckname = (TextView) itemView.findViewById(R.id.mapinfo_truckname);
         TextView mapinfo_distance = (TextView) itemView.findViewById(R.id.mapinfo_distance);
+        TextView mapinfo_location = (TextView) itemView.findViewById(R.id.mapinfo_location);
+        TextView mapinfo_favcount = (TextView) itemView.findViewById(R.id.mapinfo_favcount);
+        TextView mapinfo_card = itemView.findViewById(R.id.mapinfo_card);
+
 
         Glide.with(mContext).load(mResources.get(position).getThumbnail()).into(mapinfo_thumbnail);
         mapinfo_index.setText(String.valueOf(position + 1) + ". ");
         mapinfo_truckname.setText(mResources.get(position).getTruckName());
+        mapinfo_location.setText(mResources.get(position).getRecentAddress());
+        mapinfo_favcount.setText(String.valueOf(mResources.get(position).getStarCount()));
+
+        if (mResources.get(position).getPayCard() == true) {
+            mapinfo_card.setText("O");
+        } else {
+            mapinfo_card.setText("X");
+        }
 
         Integer distance = mResources.get(position).getDistance();
         if (distance >= 1000) {
-            mapinfo_distance.setText(String.valueOf(distance/1000) + "km " + String.valueOf(distance%1000) + "m");
+            mapinfo_distance.setText(String.valueOf(distance / 1000) + "km " + String.valueOf(distance % 1000) + "m");
 
         } else {
             mapinfo_distance.setText(String.valueOf(distance) + "m");
