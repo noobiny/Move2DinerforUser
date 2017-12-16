@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
-    android:padding="10dp"
+    android:padding="5dp"
     android:background="@drawable/roundbtn2">
 
     <ImageView
@@ -41,7 +41,7 @@
         android:text="메뉴설명"
         android:paddingLeft="5dp"
         android:textColor="#606060"
-        android:textSize="16dp"
+        android:textSize="12sp"
         app:layout_constraintLeft_toRightOf="@+id/ivFoodimg"
         app:layout_constraintTop_toBottomOf="@+id/tvRecycleFDName" />
 

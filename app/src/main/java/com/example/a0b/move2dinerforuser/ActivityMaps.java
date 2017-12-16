@@ -164,8 +164,7 @@ public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback
 
         mapindicator.setClipToPadding(false);
         mapindicator.setPageMargin(20);
-        mapindicator.setPadding(40, 0, 40, 0);
-
+        mapindicator.setPadding(0,0,40,0);
     }
 
 

@@ -41,15 +41,30 @@ public class AdapterTruckIntro extends RecyclerView.Adapter<AdapterTruckIntro.It
     public void onBindViewHolder(final ItemHolder holder, final int position) {
 
 
-        holder.TxtTruckName.setText(items.get(position).getTruckName());
+        holder.item_truck_info_truckname.setText(items.get(position).getTruckName());
         Glide.with(context)
                 .load(items.get(position).getThumbnail())
                 .placeholder(R.drawable.loadingimage)
                 .error(R.drawable.loadingimage)
-                .fitCenter().into(holder.ImgTruck);
+                .fitCenter().into(holder.item_truck_info_thumbnail);
 
-        //좋아요 한 순서로 아이템 저장되게하고 클릭하면 이동할수있게..
-        holder.layout.setOnClickListener(new View.OnClickListener() {
+        holder.item_truck_favcount.setText(String.valueOf(items.get(position).getStarCount()));
+
+        StringBuilder sb = new StringBuilder();
+        if (items.get(position).getTags() != null) {
+            for (int i = 0; i < items.get(position).getTags().size(); i++) {
+                System.out.println(i + " " + items.get(position).getTags().get(i));
+                sb.append("#" + items.get(position).getTags().get(i) + "  ");
+            }
+
+            if (sb.toString().trim().equals("") && items.get(position).getRecentAddress() != null) {
+                String[] splited = items.get(position).getRecentAddress().split(" ");
+                sb.append("#" + splited[2]);
+            }
+            holder.item_truck_info_tag.setText(sb.toString());
+        }
+
+        holder.item_truck_info_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, ActivityTruckInfo.class);
@@ -67,18 +82,19 @@ public class AdapterTruckIntro extends RecyclerView.Adapter<AdapterTruckIntro.It
 
     class ItemHolder extends RecyclerView.ViewHolder {
 
-        CardView layout;
-        ImageView ImgTruck;
-        TextView TxtTruckName;
+        CardView item_truck_info_layout;
+        ImageView item_truck_info_thumbnail;
+        TextView item_truck_info_truckname, item_truck_info_tag, item_truck_favcount;
 
-        //가독성이 떨어지는데 어댑터를 처음에 동시에 공유해서 해서 이렇게 돼버렸음.; 사실 어댑터 분리하는게 맞아요
 
         public ItemHolder(View itemView) {
             super(itemView);
 
-            layout = (CardView) itemView.findViewById(R.id.lay_parent);
-            ImgTruck = (ImageView) itemView.findViewById(R.id.imgTruck);
-            TxtTruckName = (TextView) itemView.findViewById(R.id.txtTruckName);
+            item_truck_info_layout = (CardView) itemView.findViewById(R.id.item_truck_info_layout);
+            item_truck_info_thumbnail = (ImageView) itemView.findViewById(R.id.item_truck_info_thumbnail);
+            item_truck_info_truckname = (TextView) itemView.findViewById(R.id.item_truck_info_truckname);
+            item_truck_favcount = (TextView) itemView.findViewById(R.id.item_truck_favcount);
+            item_truck_info_tag = (TextView) itemView.findViewById(R.id.item_truck_info_tag);
         }
 
     }

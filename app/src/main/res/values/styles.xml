@@ -9,6 +9,12 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <style name="CollapsedAppBar" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">25dp</item>
+        <item name="android:textColor">@color/appColor</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>

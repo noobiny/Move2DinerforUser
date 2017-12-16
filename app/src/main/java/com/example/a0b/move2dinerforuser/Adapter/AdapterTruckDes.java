@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -30,7 +31,7 @@ public class AdapterTruckDes extends RecyclerView.Adapter<AdapterTruckDes.ItemHo
     private ArrayList<String> primaryKeys = new ArrayList<>();
     private Context context;
     private FirebaseAuth auth;
-    private FirebaseDatabase database=FirebaseDatabase.getInstance();
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
 
     public AdapterTruckDes(ArrayList<ItemTruckDes> items, ArrayList<String> primaryKeys, Context context) {
@@ -42,46 +43,47 @@ public class AdapterTruckDes extends RecyclerView.Adapter<AdapterTruckDes.ItemHo
 
     @Override
     public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_truck_des, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.card_truck_des_re, parent, false);
         return new ItemHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ItemHolder holder, final int position) {
-        holder.TxtTruckName.setText(items.get(position).getTruckName());
-        holder.tv_card_favcount.setText(String.valueOf(items.get(position).getStarCount()));
 
-        if(items.get(position).getOnBusiness()==true){
-            holder.truckrow_onbusi_off.setVisibility(View.INVISIBLE);
-            holder.truckrow_onbusi_on.setVisibility(View.VISIBLE);
-        }else{
-            holder.truckrow_onbusi_off.setVisibility(View.VISIBLE);
-            holder.truckrow_onbusi_on.setVisibility(View.INVISIBLE);
+
+        holder.cardtruck_name.setText(items.get(position).getTruckName());
+        holder.cardtruck_favcount.setText(String.valueOf(items.get(position).getStarCount()));
+
+        if (items.get(position).getOnBusiness() == true) {
+            holder.cardtruck_onbusi.setText("영업중");
+            holder.cardtruck_onbusi_img.setVisibility(View.VISIBLE);
+            holder.cardtruck_offbusi_img.setVisibility(View.INVISIBLE);
+        } else {
+            holder.cardtruck_onbusi.setText("영업종료");
+            holder.cardtruck_onbusi_img.setVisibility(View.INVISIBLE);
+            holder.cardtruck_offbusi_img.setVisibility(View.VISIBLE);
         }
 
-        if(items.get(position).getPayCard()){
-            holder.truckrow_paycard_off.setVisibility(View.INVISIBLE);
-            holder.truckrow_paycard_on.setVisibility(View.VISIBLE);
-        }
-        else{
-            holder.truckrow_paycard_off.setVisibility(View.VISIBLE);
-            holder.truckrow_paycard_on.setVisibility(View.INVISIBLE);
+        if (items.get(position).getPayCard()) {
+            holder.cardtruck_cardpay.setVisibility(View.VISIBLE);
+        } else {
+            holder.cardtruck_cardpay.setVisibility(View.GONE);
         }
 
         Glide.with(context)
                 .load(items.get(position).getThumbnail())
                 .placeholder(R.drawable.loadingimage)
                 .error(R.drawable.loadingimage)
-                .fitCenter().into(holder.ImgTruck);
+                .fitCenter().into(holder.cardtruck_image);
 
-        holder.iv_card_favorite.setOnClickListener(new View.OnClickListener() {
+        holder.cardtruck_heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onStarClicked(database.getReference().child("trucks").child("info").child(primaryKeys.get(position)));
             }
         });
 
-        holder.layParent.setOnClickListener(new View.OnClickListener() {
+        holder.cardtruck_cardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(context, ActivityTruckInfo.class);
@@ -90,10 +92,25 @@ public class AdapterTruckDes extends RecyclerView.Adapter<AdapterTruckDes.ItemHo
             }
         });
 
+        StringBuilder sb = new StringBuilder();
+        if (items.get(position).getTags() != null) {
+            for (int i = 0; i < items.get(position).getTags().size(); i++) {
+                System.out.println(i + " " + items.get(position).getTags().get(i));
+                sb.append("#" + items.get(position).getTags().get(i) + "  ");
+            }
+
+            if (sb.toString().trim().equals("") && items.get(position).getRecentAddress() != null) {
+                String[] splited = items.get(position).getRecentAddress().split(" ");
+                sb.append("#" + splited[2]);
+            }
+            holder.cardtruck_tags.setText(sb.toString());
+        }
+
+
         if (items.get(position).stars.containsKey(auth.getCurrentUser().getUid())) {
-            holder.iv_card_favorite.setImageResource(R.drawable.ic_favorite_border_mintfull1_24dp);
+            holder.cardtruck_heart.setImageResource(R.drawable.ic_favorite_border_mintfull1_24dp);
         } else {
-            holder.iv_card_favorite.setImageResource(R.drawable.ic_favorite_border_mint2_24dp);
+            holder.cardtruck_heart.setImageResource(R.drawable.ic_favorite_border_mint2_24dp);
         }
     }
 
@@ -103,20 +120,27 @@ public class AdapterTruckDes extends RecyclerView.Adapter<AdapterTruckDes.ItemHo
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {
-        CardView layParent;
-        ImageView ImgTruck, iv_card_favorite,n;
-        TextView TxtTruckName, tv_card_favcount,truckrow_onbusi_off,truckrow_onbusi_on,truckrow_paycard_off,truckrow_paycard_on;
+        CardView cardtruck_cardview;
+        ImageView cardtruck_image, cardtruck_offbusi_img, cardtruck_onbusi_img, cardtruck_heart;
+        TextView cardtruck_name, cardtruck_favcount, cardtruck_onbusi, cardtruck_tags;
+        RelativeLayout cardtruck_cardpay;
+
+
         public ItemHolder(View itemView) {
             super(itemView);
-            layParent = (CardView) itemView.findViewById(R.id.lay_parent);
-            ImgTruck = (ImageView) itemView.findViewById(R.id.imgTruck);
-            TxtTruckName = (TextView) itemView.findViewById(R.id.txtTruckName);
-            truckrow_onbusi_off = (TextView) itemView.findViewById(R.id.truckrow_onbusi_off);
-            truckrow_onbusi_on = (TextView) itemView.findViewById(R.id.truckrow_onbusi_on);
-            truckrow_paycard_off = (TextView) itemView.findViewById(R.id.truckrow_paycard_off);
-            truckrow_paycard_on = (TextView) itemView.findViewById(R.id.truckrow_paycard_on);
-            iv_card_favorite = (ImageView) itemView.findViewById(R.id.iv_card_favorite);
-            tv_card_favcount = (TextView) itemView.findViewById(R.id.tv_card_favcount);
+            cardtruck_cardview = itemView.findViewById(R.id.cardtruck_cardview);
+            cardtruck_image = itemView.findViewById(R.id.cardtruck_image);
+            cardtruck_offbusi_img = itemView.findViewById(R.id.cardtruck_offbusi_img);
+            cardtruck_onbusi_img = itemView.findViewById(R.id.cardtruck_onbusi_img);
+            cardtruck_heart = itemView.findViewById(R.id.cardtruck_heart);
+            cardtruck_tags = itemView.findViewById(R.id.cardtruck_tags);
+
+            cardtruck_name = itemView.findViewById(R.id.cardtruck_name);
+            cardtruck_favcount = itemView.findViewById(R.id.cardtruck_favcount);
+            cardtruck_onbusi = itemView.findViewById(R.id.cardtruck_onbusi);
+
+            cardtruck_cardpay = itemView.findViewById(R.id.cardtruck_cardpay);
+
         }
     }
 

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,12 +56,13 @@ import static com.kakao.message.template.LinkObject.newBuilder;
 
 public class ActivityTruckInfo extends AppCompatActivity {
     private int favcount;
-    private ImageView img_thumbnail, iv_truck_favorite, tv_truck_share, tv_truck_writereview;
+    private ImageView img_thumbnail, iv_truck_favorite, tv_truck_share, tv_truck_writereview, truckinfo_offbusi_img, truckinfo_onbusi_img;
     private String primaryKey;
     private Boolean isHeart;
     private ViewPager img_slider;
-    private TextView btn_truck_review, sliderIndicator, tv_truck_favcount, truckinfo_recent_location, tv_truck_busiHours, tv_truck_des,
-            tv_truck_card, tv_truck_onbusi;
+    private TextView btn_truck_review, sliderIndicator, tv_truck_favcount, truckinfo_recent_location, tv_truck_tags, tv_truck_des,
+            truckinfo_onbusi;
+    private RelativeLayout truckinfo_card;
 
     private ArrayList<String> slideImages = new ArrayList<>();
 
@@ -84,7 +86,6 @@ public class ActivityTruckInfo extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        System.gc();
 
         primaryKey = getIntent().getStringExtra("PrimaryKey");
 
@@ -130,27 +131,33 @@ public class ActivityTruckInfo extends AppCompatActivity {
                     truckinfo_recent_location.setText(itemTruckDes.getRecentAddress());
 
                     if (itemTruckDes.getOnBusiness()) {
-                        tv_truck_onbusi.setVisibility(View.VISIBLE);
+                        truckinfo_onbusi.setText("영업중");
+                        truckinfo_offbusi_img.setVisibility(View.INVISIBLE);
+                        truckinfo_onbusi_img.setVisibility(View.VISIBLE);
+
                     } else {
-                        tv_truck_onbusi.setVisibility(View.INVISIBLE);
+                        truckinfo_onbusi.setText("영업종료");
+                        truckinfo_offbusi_img.setVisibility(View.VISIBLE);
+                        truckinfo_onbusi_img.setVisibility(View.INVISIBLE);
+
                     }
                 }
 
                 //카드체크
                 if (itemTruckDes.getPayCard() == true) {
-                    tv_truck_card.setVisibility(View.VISIBLE);
+                    truckinfo_card.setVisibility(View.VISIBLE);
                 } else {
-                    tv_truck_card.setVisibility(View.INVISIBLE);
+                    truckinfo_card.setVisibility(View.GONE);
                 }
-
 
 
                 android.support.v7.widget.Toolbar mToolbar = findViewById(R.id.toolbar);
                 setSupportActionBar(mToolbar);
-                getSupportActionBar().setDisplayShowTitleEnabled(false);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
                 collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
                 collapsingToolbarLayout.setTitle(itemTruckDes.getTruckName());
+                collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CollapsedAppBar);
+                collapsingToolbarLayout.setExpandedTitleMargin(0,2,0,8);
 
                 loadImageSlide(); //이미지 슬라이드 가져오기
                 settingData(); //초기 세팅
@@ -166,8 +173,12 @@ public class ActivityTruckInfo extends AppCompatActivity {
 
     private void initView() {
 
-        tv_truck_card = findViewById(R.id.tv_truck_card);
-        tv_truck_onbusi = findViewById(R.id.tv_truck_onbusi);
+        truckinfo_offbusi_img = findViewById(R.id.truckinfo_offbusi_img);
+        truckinfo_onbusi_img = findViewById(R.id.truckinfo_onbusi_img);
+
+        truckinfo_card = findViewById(R.id.truckinfo_card);
+        truckinfo_onbusi = findViewById(R.id.truckinfo_onbusi);
+
         tv_truck_writereview = (ImageView) findViewById(R.id.tv_truck_writereview);
         tv_truck_share = (ImageView) findViewById(R.id.tv_truck_share);
         truckinfo_recent_location = (TextView) findViewById(R.id.truckinfo_recent_location);
@@ -180,7 +191,7 @@ public class ActivityTruckInfo extends AppCompatActivity {
         recycle_menuinfo = (RecyclerViewEmptySupport) findViewById(R.id.recycle_menuinfo);
         iv_truck_favorite = (ImageView) findViewById(R.id.iv_truck_favorite);
         tv_truck_des = (TextView) findViewById(R.id.tv_truck_des);
-        tv_truck_busiHours = (TextView) findViewById(R.id.tv_truck_busiHours);
+        tv_truck_tags = (TextView) findViewById(R.id.tv_truck_tags);
         lottieAnimationView = (LottieAnimationView) findViewById(R.id.animation_view);
 
         reviewAdapter = new AdapterTruckReview(reviewListItems, reviewKeys, this);
@@ -327,19 +338,21 @@ public class ActivityTruckInfo extends AppCompatActivity {
 
     private void settingData() {
 
-//        CustomTitlebar ct = new CustomTitlebar(this, itemTruckDes.getTruckName());
-//        ct.iv_arrow_back.setVisibility(View.VISIBLE);
-//        tv_truck_name.setText(itemTruckDes.getTruckName());
-
-        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitle(itemTruckDes.getTruckName());
-        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
-
         tv_truck_des.setText(itemTruckDes.getTruckDes());
-        tv_truck_busiHours.setText(itemTruckDes.getBusiInfo());
 
         favcount = itemTruckDes.getStarCount();
         tv_truck_favcount.setText(String.valueOf(favcount));
+
+        StringBuilder sb = new StringBuilder();
+        if (itemTruckDes.getTags() != null) {
+            for (int i = 0; i < itemTruckDes.getTags().size(); i++) {
+                sb.append("#" + itemTruckDes.getTags().get(i) + "  ");
+            }
+            tv_truck_tags.setText(sb);
+
+        } else {
+            tv_truck_tags.setText("등록된 태그가 없습니다");
+        }
 
         //처음에 좋아요 인지 아닌지 검사
         if (itemTruckDes.stars.containsKey(auth.getCurrentUser().getUid())) {

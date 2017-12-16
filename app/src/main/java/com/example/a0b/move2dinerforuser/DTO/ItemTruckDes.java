@@ -2,6 +2,7 @@ package com.example.a0b.move2dinerforuser.DTO;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,11 +16,20 @@ public class ItemTruckDes implements Serializable {
     public Map<String, Boolean> stars = new HashMap<>();
     private String recentAddress;
     private String recentLat;
-    private String recentLon,startTime;
+    private String recentLon, startTime;
     private Boolean onBusiness;
     private Integer distance;
     private Boolean payCard;
+    private ArrayList<String> tags = new ArrayList<>();
 
+
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
+    }
 
     public Boolean getPayCard() {
         return payCard;

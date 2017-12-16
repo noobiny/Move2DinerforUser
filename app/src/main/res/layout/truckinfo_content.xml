@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.a0b.move2dinerforuser.ActivityTruckInfo"
-
+    tools:showIn="@layout/activity_truck_info">
     >
-    <!--tools:showIn="@layout/activity_truck_info">-->
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -85,48 +85,82 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:background="#fff"
-            android:layout_marginBottom="1dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:background="#fff"
+            android:paddingBottom="5dp"
+            android:paddingTop="3dp">
 
             <RelativeLayout
-                android:layout_centerInParent="true"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
 
-                <TextView
-                    android:id="@+id/tv_truck_card"
+                <RelativeLayout
+                    android:id="@+id/layout2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-
-                    android:background="@drawable/btn_round_background"
-                    android:backgroundTint="@color/green"
-                    android:padding="5dp"
-                    android:text="카드결제"
-                    android:textColor="#ffffff"
-                    android:textSize="12dp"
-                  />
-
-                <TextView
-                    android:id="@+id/tv_truck_onbusi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@id/tv_truck_card"
-                    android:background="@drawable/btn_round_background"
-                    android:backgroundTint="@color/green"
-                    android:padding="5dp"
-                    android:text="영업중"
-                    android:textColor="#ffffff"
-                    android:textSize="12dp"
-                  />
+                    android:layout_toRightOf="@id/layout1">
 
+                    <ImageView
+                        android:id="@+id/truckinfo_offbusi_img"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_check_circle_black_24dp"
+                        android:tint="@color/lightgrey" />
+
+                    <ImageView
+                        android:id="@+id/truckinfo_onbusi_img"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/ic_check_circle_black_24dp"
+                        android:tint="@color/appColor"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:id="@+id/truckinfo_onbusi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/truckinfo_offbusi_img"
+                        android:text="영업종료"
+                        android:textSize="13dp" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/truckinfo_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/layout2"
+                    android:paddingTop="2dp"
+                    android:visibility="visible">
+
+                    <ImageView
+                        android:id="@+id/iv3"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:src="@drawable/credit_card" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="5dp"
+                        android:layout_toRightOf="@id/iv3"
+                        android:text="카드"
+                        android:textSize="13dp"
+
+                        />
+
+                </RelativeLayout>
             </RelativeLayout>
+
         </RelativeLayout>
 
         <LinearLayout
@@ -150,7 +184,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="12dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -164,17 +198,17 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="영업 시간 : "
+                android:text="태그 : "
                 android:textColor="#65B5A5"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_truck_busiHours"
+                android:id="@+id/tv_truck_tags"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#000000"
-                android:textSize="18sp" />
+                android:textSize="12dp" />
         </LinearLayout>
 
         <TextView

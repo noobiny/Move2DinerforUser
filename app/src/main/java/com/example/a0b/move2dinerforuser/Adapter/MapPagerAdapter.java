@@ -13,15 +13,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.a0b.move2dinerforuser.ActivityTruckInfo;
 import com.example.a0b.move2dinerforuser.DTO.ItemTruckDes;
-import com.example.a0b.move2dinerforuser.DTO.SalesInfoListItem;
 import com.example.a0b.move2dinerforuser.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -68,6 +65,7 @@ public class MapPagerAdapter extends PagerAdapter {
         TextView mapinfo_location = (TextView) itemView.findViewById(R.id.mapinfo_location);
         TextView mapinfo_favcount = (TextView) itemView.findViewById(R.id.mapinfo_favcount);
         TextView mapinfo_card = itemView.findViewById(R.id.mapinfo_card);
+        TextView mapinfo_tags = itemView.findViewById(R.id.mapinfo_tags);
 
 
         Glide.with(mContext).load(mResources.get(position).getThumbnail()).into(mapinfo_thumbnail);
@@ -80,6 +78,21 @@ public class MapPagerAdapter extends PagerAdapter {
             mapinfo_card.setText("O");
         } else {
             mapinfo_card.setText("X");
+        }
+
+
+        StringBuilder sb = new StringBuilder();
+        if (mResources.get(position).getTags() != null) {
+            for (int i = 0; i < mResources.get(position).getTags().size(); i++) {
+                System.out.println(i + " " + mResources.get(position).getTags().get(i));
+                sb.append("#" + mResources.get(position).getTags().get(i) + "  ");
+            }
+
+            if (sb.toString().trim().equals("") && mResources.get(position).getRecentAddress() != null) {
+                String[] splited = mResources.get(position).getRecentAddress().split(" ");
+                sb.append("#" + splited[2]);
+            }
+            mapinfo_tags.setText(sb.toString());
         }
 
         Integer distance = mResources.get(position).getDistance();

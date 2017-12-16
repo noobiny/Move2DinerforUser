@@ -52,12 +52,12 @@
                 android:layout_marginBottom="7dp"
                 android:background="#ffffff"
                 android:drawableTint="#000000"
-                android:padding="8dp"
+                android:padding="5dp"
                 android:singleLine="true"
                 android:text="닉네임"
                 android:textAlignment="center"
                 android:textColor="#65B5A5"
-                android:textSize="20sp"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -96,6 +96,7 @@
                 android:paddingBottom="15dp">
 
                 <com.example.a0b.move2dinerforuser.RecyclerViewEmptySupport
+                    android:paddingLeft="5dp"
                     android:id="@+id/list_favlist"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

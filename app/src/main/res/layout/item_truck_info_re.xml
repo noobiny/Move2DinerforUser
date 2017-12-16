@@ -1,34 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/lay_parent"
-    android:layout_width="180dp"
-    android:layout_height="150dp"
-    android:layout_marginRight="20dp"
-    >
+    android:id="@+id/item_truck_info_layout"
+    android:layout_width="170dp"
+    android:layout_height="190dp"
+    android:layout_marginRight="10dp">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/imgTruck"
+            android:id="@+id/item_truck_info_thumbnail"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:scaleType="fitXY"
-            app:srcCompat="@drawable/kkochi2" />
+            android:layout_height="140dp"
+            android:scaleType="fitXY" />
 
-        <TextView
-            android:id="@+id/txtTruckName"
+        <LinearLayout
+            android:paddingLeft="4dp"
             android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginBottom="2dp"
-            android:layout_alignParentBottom="true"
-            android:textAlignment="center"
-            android:textColor="#000"
-            android:textSize="14dp"
-           />
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/item_truck_info_truckname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="하이요"
+                android:textColor="#000"
+                android:textSize="14dp" />
+
+            <TextView
+                android:id="@+id/item_truck_info_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="#ㄹㄹ 33"
+                android:textSize="12dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="2dp">
+
+                <ImageView
+                    android:id="@+id/iv_heart"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp"
+                    android:src="@drawable/ic_favorite_border_mint1_24dp" />
+
+                <TextView
+                    android:id="@+id/item_truck_favcount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginTop="-4dp"
+                    android:layout_toRightOf="@id/iv_heart"
+                    android:text="55"
+                    android:textSize="10dp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </android.support.v7.widget.CardView>

@@ -49,6 +49,7 @@ import com.gun0912.tedpermission.TedPermission;
 import java.util.ArrayList;
 
 import gun0912.tedbottompicker.TedBottomPicker;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 import static com.example.a0b.move2dinerforuser.ActivitySelectAuth.mGoogleApiClient;
 
@@ -160,7 +161,7 @@ public class ActivityUserInfo extends AppCompatActivity implements View.OnClickL
         BaseApplication.getInstance().progressON(ActivityUserInfo.this, "데이터 로딩중");
         //사진 데이터 가져올때 Glide 사용해야해
         if (auth.getCurrentUser().getPhotoUrl() != null) {
-            Glide.with(this).load(auth.getCurrentUser().getPhotoUrl()).into(iv_user_photo);
+            Glide.with(this).load(auth.getCurrentUser().getPhotoUrl()).bitmapTransform(new CropCircleTransformation(new CustomBitmapPool())).into(iv_user_photo);
         }
 
         //리뷰 데이터 가져오기  -> 최근 3개 가져오기
@@ -372,7 +373,7 @@ public class ActivityUserInfo extends AppCompatActivity implements View.OnClickL
                         @Override
                         public void onImageSelected(final Uri uri) {
                             imagePath = uri;
-                            Glide.with(ActivityUserInfo.this).load(imagePath).into(iv_user_photo);
+                            Glide.with(ActivityUserInfo.this).load(imagePath).bitmapTransform(new CropCircleTransformation(new CustomBitmapPool())).into(iv_user_photo);
                         }
                     })
                     .create();

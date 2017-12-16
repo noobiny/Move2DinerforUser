@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.example.a0b.move2dinerforuser.ActivityMaps;
 import com.example.a0b.move2dinerforuser.ActivityOnSaleTruck;
@@ -30,11 +31,12 @@ import java.util.ArrayList;
 
 public class FragmentSearchTruck extends Fragment implements View.OnClickListener {
 
-    Button BtnFindBesides, BtnFindLoaction, btnViewAllTruck, btnViewOnSaleTruck;
+    Button BtnFindBesides, BtnFindLoaction, btnViewAllTruck, btnmap, btnlist;
+    LinearLayout btngroup;
     AutoCompleteTextView autoView_listAll;
     ArrayList<ItemTruckList> itemsTruckList = new ArrayList<>();
     ArrayList<String> truckNames = new ArrayList<>();
-    FirebaseDatabase database=FirebaseDatabase.getInstance();
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     public FragmentSearchTruck() {
     }
@@ -47,8 +49,11 @@ public class FragmentSearchTruck extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_search_truck, container, false);
+
         BtnFindBesides = (Button) rootView.findViewById(R.id.btnFindByMyBesides);
-        btnViewOnSaleTruck = (Button) rootView.findViewById(R.id.btnViewOnSaleTruck);
+        btngroup = rootView.findViewById(R.id.btngroup);
+        btnlist = (Button) rootView.findViewById(R.id.btnlist);
+        btnmap = (Button) rootView.findViewById(R.id.btnmap);
         BtnFindLoaction = (Button) rootView.findViewById(R.id.btnFindByLocation);
         btnViewAllTruck = (Button) rootView.findViewById(R.id.btnViewAllTruck);
         autoView_listAll = (AutoCompleteTextView) rootView.findViewById(R.id.autoview_listAll);
@@ -74,10 +79,12 @@ public class FragmentSearchTruck extends Fragment implements View.OnClickListene
             }
         });
 
-        btnViewOnSaleTruck.setOnClickListener(this);
+
         BtnFindBesides.setOnClickListener(this);
         BtnFindLoaction.setOnClickListener(this);
         btnViewAllTruck.setOnClickListener(this);
+        btnlist.setOnClickListener(this);
+        btnmap.setOnClickListener(this);
 
         loadTruckList();
         return rootView;
@@ -92,9 +99,13 @@ public class FragmentSearchTruck extends Fragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnFindByMyBesides:
-                Intent i = new Intent(getContext(), ActivityMaps.class);
-                i.putExtra("IsFromSelLoc", false);
-                startActivity(i);
+
+                if (btngroup.getVisibility() == View.GONE)
+                    btngroup.setVisibility(View.VISIBLE);
+                else {
+                    btngroup.setVisibility(View.GONE);
+                }
+
                 break;
 
             case R.id.btnFindByLocation:
@@ -104,9 +115,15 @@ public class FragmentSearchTruck extends Fragment implements View.OnClickListene
             case R.id.btnViewAllTruck:
                 startActivity(new Intent(getContext(), ActivityTruckDes.class));
                 break;
-            case R.id.btnViewOnSaleTruck:
+
+            case R.id.btnlist:
                 startActivity(new Intent(getContext(), ActivityOnSaleTruck.class));
                 break;
+
+            case R.id.btnmap:
+                Intent i = new Intent(getContext(), ActivityMaps.class);
+                i.putExtra("IsFromSelLoc", false);
+                startActivity(i);
         }
     }
 

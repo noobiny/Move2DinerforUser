@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.a0b.move2dinerforuser.Adapter.AdapterTruckDes;
+import com.example.a0b.move2dinerforuser.Adapter.AdapterTruckIntro;
 import com.example.a0b.move2dinerforuser.Adapter.ImageSliderAdapter;
 import com.example.a0b.move2dinerforuser.BaseApplication;
 import com.example.a0b.move2dinerforuser.DTO.ItemTruckDes;
@@ -42,7 +42,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     private ArrayList<ItemTruckDes> bestTrucks = new ArrayList<>();
     private ArrayList<String> bestTruckKeys = new ArrayList<>();
     private RecyclerViewEmptySupport bestRecycler;
-    private AdapterTruckDes bestAdapter;
+    private AdapterTruckIntro bestAdapter;
     private LinearLayoutManager bestManager;
 
 //    private AdapterTruckIntro onSaleAdapter;
@@ -87,7 +87,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 //        recycler_onSaleTruck.setAdapter(onSaleAdapter);
 
 
-        bestAdapter = new AdapterTruckDes(bestTrucks, bestTruckKeys, getContext());
+        bestAdapter = new AdapterTruckIntro(bestTrucks, bestTruckKeys, getContext());
         bestManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         bestManager.setAutoMeasureEnabled(true);
 
