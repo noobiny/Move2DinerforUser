@@ -2,10 +2,10 @@ package com.example.a0b.move2dinerforuser;
 
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -14,10 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
@@ -41,7 +39,6 @@ import com.kakao.kakaolink.v2.KakaoLinkService;
 import com.kakao.message.template.ButtonObject;
 import com.kakao.message.template.ContentObject;
 import com.kakao.message.template.FeedTemplate;
-import com.kakao.message.template.LinkObject;
 import com.kakao.message.template.SocialObject;
 import com.kakao.network.ErrorResult;
 import com.kakao.network.callback.ResponseCallback;
@@ -58,12 +55,12 @@ import static com.kakao.message.template.LinkObject.newBuilder;
 
 public class ActivityTruckInfo extends AppCompatActivity {
     private int favcount;
-    private ImageView img_thumbnail, iv_truck_favorite, tv_truck_share, tv_truck_writereview, busi_on, busi_off;
+    private ImageView img_thumbnail, iv_truck_favorite, tv_truck_share, tv_truck_writereview;
     private String primaryKey;
     private Boolean isHeart;
     private ViewPager img_slider;
     private TextView btn_truck_review, sliderIndicator, tv_truck_favcount, truckinfo_recent_location, tv_truck_busiHours, tv_truck_des,
-            tv_truck_cardoff, tv_truck_cardon;
+            tv_truck_card, tv_truck_onbusi;
 
     private ArrayList<String> slideImages = new ArrayList<>();
 
@@ -80,7 +77,7 @@ public class ActivityTruckInfo extends AppCompatActivity {
     private ItemTruckDes itemTruckDes;
 
     private LottieAnimationView lottieAnimationView;
-
+    private CollapsingToolbarLayout collapsingToolbarLayout;
     private RecyclerViewEmptySupport recycler_review, recycle_menuinfo;
 
 
@@ -92,7 +89,6 @@ public class ActivityTruckInfo extends AppCompatActivity {
         primaryKey = getIntent().getStringExtra("PrimaryKey");
 
         if (primaryKey == null) { //카카오톡 링크를 타고 온경우
-
             Uri uri = getIntent().getData();
             primaryKey = uri.getQueryParameter("PrimaryKey");
 
@@ -105,7 +101,6 @@ public class ActivityTruckInfo extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_truck_info);
-
 
         BaseApplication.getInstance().progressON(ActivityTruckInfo.this, "트럭 정보 로딩중");
 
@@ -135,30 +130,27 @@ public class ActivityTruckInfo extends AppCompatActivity {
                     truckinfo_recent_location.setText(itemTruckDes.getRecentAddress());
 
                     if (itemTruckDes.getOnBusiness()) {
-
-                        busi_on.setVisibility(View.VISIBLE);
-                        busi_off.setVisibility(View.INVISIBLE);
+                        tv_truck_onbusi.setVisibility(View.VISIBLE);
                     } else {
-                        busi_on.setVisibility(View.INVISIBLE);
-                        busi_off.setVisibility(View.VISIBLE);
+                        tv_truck_onbusi.setVisibility(View.INVISIBLE);
                     }
                 }
 
                 //카드체크
-                if(itemTruckDes.getPayCard()==true){
-                    tv_truck_cardoff.setVisibility(View.INVISIBLE);
-                    tv_truck_cardon.setVisibility(View.VISIBLE);
-
-                }else{
-                    tv_truck_cardoff.setVisibility(View.VISIBLE);
-                    tv_truck_cardon.setVisibility(View.INVISIBLE);
+                if (itemTruckDes.getPayCard() == true) {
+                    tv_truck_card.setVisibility(View.VISIBLE);
+                } else {
+                    tv_truck_card.setVisibility(View.INVISIBLE);
                 }
 
-                android.support.v7.widget.Toolbar toolbar = findViewById(R.id.toolbar);
-                setSupportActionBar(toolbar);
-                toolbar.setTitle(itemTruckDes.getTruckName());
-                toolbar.setBackgroundColor(getResources().getColor(R.color.appColor));
+
+
+                android.support.v7.widget.Toolbar mToolbar = findViewById(R.id.toolbar);
+                setSupportActionBar(mToolbar);
+                getSupportActionBar().setDisplayShowTitleEnabled(false);
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+                collapsingToolbarLayout.setTitle(itemTruckDes.getTruckName());
 
                 loadImageSlide(); //이미지 슬라이드 가져오기
                 settingData(); //초기 세팅
@@ -174,22 +166,16 @@ public class ActivityTruckInfo extends AppCompatActivity {
 
     private void initView() {
 
-        tv_truck_cardoff=findViewById(R.id.tv_truck_cardoff);
-        tv_truck_cardon=findViewById(R.id.tv_truck_cardon);
-
-        busi_on = (ImageView) findViewById(R.id.busi_on);
-        busi_off = (ImageView) findViewById(R.id.busi_off);
-
+        tv_truck_card = findViewById(R.id.tv_truck_card);
+        tv_truck_onbusi = findViewById(R.id.tv_truck_onbusi);
         tv_truck_writereview = (ImageView) findViewById(R.id.tv_truck_writereview);
         tv_truck_share = (ImageView) findViewById(R.id.tv_truck_share);
-//        checkonbusiness = (TextView) findViewById(R.id.checkonbusiness);
         truckinfo_recent_location = (TextView) findViewById(R.id.truckinfo_recent_location);
         tv_truck_favcount = (TextView) findViewById(R.id.tv_truck_favcount);
         img_thumbnail = (ImageView) findViewById(R.id.img_thumbnail);
         sliderIndicator = (TextView) findViewById(R.id.sliderIndicator);
         img_slider = (ViewPager) findViewById(R.id.img_slider);
         btn_truck_review = (TextView) findViewById(R.id.btn_truck_review);
-//        tv_truck_name = (TextView) findViewById(R.id.tv_truck_name);
         recycler_review = (RecyclerViewEmptySupport) findViewById(R.id.recycler_review);
         recycle_menuinfo = (RecyclerViewEmptySupport) findViewById(R.id.recycle_menuinfo);
         iv_truck_favorite = (ImageView) findViewById(R.id.iv_truck_favorite);
@@ -337,7 +323,6 @@ public class ActivityTruckInfo extends AppCompatActivity {
             }
         });
 
-
     }
 
     private void settingData() {
@@ -345,6 +330,11 @@ public class ActivityTruckInfo extends AppCompatActivity {
 //        CustomTitlebar ct = new CustomTitlebar(this, itemTruckDes.getTruckName());
 //        ct.iv_arrow_back.setVisibility(View.VISIBLE);
 //        tv_truck_name.setText(itemTruckDes.getTruckName());
+
+        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
+        collapsingToolbarLayout.setTitle(itemTruckDes.getTruckName());
+        collapsingToolbarLayout.setExpandedTitleColor(getResources().getColor(android.R.color.transparent));
+
         tv_truck_des.setText(itemTruckDes.getTruckDes());
         tv_truck_busiHours.setText(itemTruckDes.getBusiInfo());
 

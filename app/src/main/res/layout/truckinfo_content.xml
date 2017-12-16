@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.a0b.move2dinerforuser.ActivityTruckInfo"
-    tools:showIn="@layout/activity_truck_info">
 
+    >
+    <!--tools:showIn="@layout/activity_truck_info">-->
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="7dp"
+            android:layout_marginBottom="1dp"
             android:background="#fff"
             android:paddingBottom="5dp"
             android:paddingTop="5dp">
@@ -79,62 +80,54 @@
                     android:src="@drawable/write_review"
                     android:tint="#555555" />
 
-
-                <TextView
-                    android:id="@+id/tv_truck_cardoff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="30dp"
-                    android:layout_toRightOf="@id/busi_off"
-                    android:background="@drawable/btn_round_background"
-                    android:backgroundTint="@color/appColor"
-                    android:padding="5dp"
-                    android:text="카드결제"
-                    android:textColor="#ffffff"
-                    android:textSize="12dp" />
-
-                <TextView
-                    android:visibility="invisible"
-                    android:id="@+id/tv_truck_cardon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="30dp"
-                    android:layout_toRightOf="@id/busi_off"
-                    android:background="@drawable/btn_round_background"
-                    android:backgroundTint="@color/lightgrey"
-                    android:padding="5dp"
-                    android:text="카드결제"
-                    android:textColor="#ffffff"
-                    android:textSize="12dp" />
-
-                <ImageView
-                    android:id="@+id/busi_on"
-                    android:layout_width="38dp"
-                    android:layout_height="42dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="30dp"
-                    android:layout_toRightOf="@id/tv_truck_writereview"
-                    android:src="@drawable/ic_directions_open"
-                    android:tint="@color/green"
-                    android:visibility="invisible" />
-
-                <ImageView
-                    android:id="@+id/busi_off"
-                    android:layout_width="38dp"
-                    android:layout_height="42dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="30dp"
-                    android:layout_toRightOf="@id/tv_truck_writereview"
-                    android:src="@drawable/ic_directions_open"
-                    android:tint="@color/lightgrey" />
-
             </RelativeLayout>
-
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:background="#fff"
+            android:layout_marginBottom="1dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_truck_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+
+                    android:background="@drawable/btn_round_background"
+                    android:backgroundTint="@color/green"
+                    android:padding="5dp"
+                    android:text="카드결제"
+                    android:textColor="#ffffff"
+                    android:textSize="12dp"
+                  />
+
+                <TextView
+                    android:id="@+id/tv_truck_onbusi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@id/tv_truck_card"
+                    android:background="@drawable/btn_round_background"
+                    android:backgroundTint="@color/green"
+                    android:padding="5dp"
+                    android:text="영업중"
+                    android:textColor="#ffffff"
+                    android:textSize="12dp"
+                  />
+
+            </RelativeLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

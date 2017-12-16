@@ -59,15 +59,19 @@
         <activity
             android:name=".ActivityMaps"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".ActivityTruckInfo">
+        <activity
+            android:name=".ActivityTruckInfo"
+            android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
 
-                <data android:scheme="@string/kakao_scheme"
-                    android:host="@string/kakaolink_host" />
+                <data
+                    android:host="@string/kakaolink_host"
+                    android:scheme="@string/kakao_scheme" />
             </intent-filter>
         </activity>
 

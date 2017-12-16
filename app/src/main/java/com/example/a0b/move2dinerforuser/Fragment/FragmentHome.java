@@ -1,25 +1,19 @@
 package com.example.a0b.move2dinerforuser.Fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.SnapHelper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.a0b.move2dinerforuser.ActivityOnSaleTruck;
-import com.example.a0b.move2dinerforuser.ActivityTruckDes;
-import com.example.a0b.move2dinerforuser.Adapter.AdapterTruckIntro;
-import com.example.a0b.move2dinerforuser.Adapter.AdapterTruckRecycle;
+import com.example.a0b.move2dinerforuser.Adapter.AdapterTruckDes;
 import com.example.a0b.move2dinerforuser.Adapter.ImageSliderAdapter;
 import com.example.a0b.move2dinerforuser.BaseApplication;
 import com.example.a0b.move2dinerforuser.DTO.ItemTruckDes;
@@ -48,7 +42,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     private ArrayList<ItemTruckDes> bestTrucks = new ArrayList<>();
     private ArrayList<String> bestTruckKeys = new ArrayList<>();
     private RecyclerViewEmptySupport bestRecycler;
-    private AdapterTruckIntro bestAdapter;
+    private AdapterTruckDes bestAdapter;
     private LinearLayoutManager bestManager;
 
 //    private AdapterTruckIntro onSaleAdapter;
@@ -93,15 +87,13 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 //        recycler_onSaleTruck.setAdapter(onSaleAdapter);
 
 
-        bestAdapter = new AdapterTruckIntro(bestTrucks, bestTruckKeys, getContext());
+        bestAdapter = new AdapterTruckDes(bestTrucks, bestTruckKeys, getContext());
         bestManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         bestManager.setAutoMeasureEnabled(true);
 
         //파베에서 내림차순 지원안해서 매니저 거꾸로
         bestManager.setReverseLayout(true);
         bestManager.setStackFromEnd(true);
-
-//        bestRecycler.setLayoutManager(bestManager);
 
         bestRecycler.setLayoutManager(bestManager);
         SnapHelper snapHelper = new GravitySnapHelper(Gravity.START);

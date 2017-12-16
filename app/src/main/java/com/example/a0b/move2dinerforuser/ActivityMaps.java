@@ -79,14 +79,23 @@ public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback
             R.drawable.marker_like_unselect_5, R.drawable.marker_like_unselect_6, R.drawable.marker_like_unselect_7, R.drawable.marker_like_unselect_8,
             R.drawable.marker_like_unselect_9, R.drawable.marker_like_unselect_10, R.drawable.marker_like_unselect_11, R.drawable.marker_like_unselect_12,
             R.drawable.marker_like_unselect_13, R.drawable.marker_like_unselect_14, R.drawable.marker_like_unselect_15, R.drawable.marker_like_unselect_16,
-            R.drawable.marker_like_unselect_17, R.drawable.marker_like_unselect_18, R.drawable.marker_like_unselect_19, R.drawable.marker_like_unselect_20
+            R.drawable.marker_like_unselect_21, R.drawable.marker_like_unselect_22, R.drawable.marker_like_unselect_23, R.drawable.marker_like_unselect_24,
+            R.drawable.marker_like_unselect_25, R.drawable.marker_like_unselect_26, R.drawable.marker_like_unselect_27, R.drawable.marker_like_unselect_28,
+            R.drawable.marker_like_unselect_29, R.drawable.marker_like_unselect_30, R.drawable.marker_like_unselect_31, R.drawable.marker_like_unselect_32,
+            R.drawable.marker_like_unselect_23, R.drawable.marker_like_unselect_34, R.drawable.marker_like_unselect_35, R.drawable.marker_like_unselect_36,
+            R.drawable.marker_like_unselect_37, R.drawable.marker_like_unselect_38, R.drawable.marker_like_unselect_39, R.drawable.marker_like_unselect_40
     };
 
     private int[] marker_selected_Images = {R.drawable.marker_like_select_1, R.drawable.marker_like_select_2, R.drawable.marker_like_select_3, R.drawable.marker_like_select_4,
             R.drawable.marker_like_select_5, R.drawable.marker_like_select_6, R.drawable.marker_like_select_7, R.drawable.marker_like_select_8,
             R.drawable.marker_like_select_9, R.drawable.marker_like_select_10, R.drawable.marker_like_select_11, R.drawable.marker_like_select_12,
             R.drawable.marker_like_select_13, R.drawable.marker_like_select_14, R.drawable.marker_like_select_15, R.drawable.marker_like_select_16,
-            R.drawable.marker_like_select_17, R.drawable.marker_like_select_18, R.drawable.marker_like_select_19, R.drawable.marker_like_select_20
+            R.drawable.marker_like_select_17, R.drawable.marker_like_select_18, R.drawable.marker_like_select_19, R.drawable.marker_like_select_20,
+            R.drawable.marker_like_select_21, R.drawable.marker_like_select_22, R.drawable.marker_like_select_23, R.drawable.marker_like_select_24,
+            R.drawable.marker_like_select_25, R.drawable.marker_like_select_26, R.drawable.marker_like_select_27, R.drawable.marker_like_select_28,
+            R.drawable.marker_like_select_29, R.drawable.marker_like_select_30, R.drawable.marker_like_select_31, R.drawable.marker_like_select_32,
+            R.drawable.marker_like_select_23, R.drawable.marker_like_select_34, R.drawable.marker_like_select_35, R.drawable.marker_like_select_36,
+            R.drawable.marker_like_select_37, R.drawable.marker_like_select_38, R.drawable.marker_like_select_39, R.drawable.marker_like_select_40
     };
 
 
@@ -155,7 +164,7 @@ public class ActivityMaps extends FragmentActivity implements OnMapReadyCallback
 
         mapindicator.setClipToPadding(false);
         mapindicator.setPageMargin(20);
-        mapindicator.setPadding(40,0,40,0);
+        mapindicator.setPadding(40, 0, 40, 0);
 
     }
 
