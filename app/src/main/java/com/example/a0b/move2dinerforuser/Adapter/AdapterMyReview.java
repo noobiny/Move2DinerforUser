@@ -83,6 +83,7 @@ public class AdapterMyReview extends RecyclerView.Adapter<AdapterMyReview.ItemHo
                 Toast.makeText(context, "삭제가 완료되었습니다", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     class ItemHolder extends RecyclerView.ViewHolder {
@@ -95,7 +96,7 @@ public class AdapterMyReview extends RecyclerView.Adapter<AdapterMyReview.ItemHo
 
         public ItemHolder(View itemView) {
             super(itemView);
-            myreview_row_entire=(LinearLayout)itemView.findViewById(R.id.myreview_row_entire);
+            myreview_row_entire = (LinearLayout) itemView.findViewById(R.id.myreview_row_entire);
             myreview_row_thumbnail = (ImageView) itemView.findViewById(R.id.myreview_row_thumbnail);
             myreview_row_truckName = (TextView) itemView.findViewById(R.id.myreview_row_truckName);
             myreview_row_content = (TextView) itemView.findViewById(R.id.myreview_row_content);

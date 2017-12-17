@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recentreview_row_entire"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:background="@drawable/roundbtn2"
+    android:orientation="vertical"
+    android:paddingBottom="10dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingTop="10dp">
+
+    <RelativeLayout
+        android:id="@+id/userspace"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/recentreview_row_userthumbnail"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:scaleType="centerCrop" />
+
+        <TextView
+            android:id="@+id/recentreview_row_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/recentreview_row_userthumbnail"
+            android:text="요롤로잉"
+            android:textColor="#000000"
+            android:textSize="14dp" />
+
+
+        <TextView
+            android:id="@+id/recentreview_row_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:paddingRight="5dp"
+            android:text="2017-10-23 11:09"
+            android:textColor="#5E5E5E"
+            android:textSize="11dp" />
+
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/recentreview_row_truckname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="피스 스시 앤 샐러드"
+        android:textColor="#ff7f00"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/recentreview_row_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userspace"
+        android:layout_marginTop="5dp"
+        android:text="리뷰내용"
+        android:textColor="#000000"
+        android:textSize="13.5dp" />
+
+    <ImageView
+        android:id="@+id/recentreview_row_truckpic"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginTop="5dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/ddukbbokki" />
+
+</LinearLayout>

@@ -53,7 +53,6 @@ public class AdapterTruckIntro extends RecyclerView.Adapter<AdapterTruckIntro.It
         StringBuilder sb = new StringBuilder();
         if (items.get(position).getTags() != null) {
             for (int i = 0; i < items.get(position).getTags().size(); i++) {
-                System.out.println(i + " " + items.get(position).getTags().get(i));
                 sb.append("#" + items.get(position).getTags().get(i) + "  ");
             }
 

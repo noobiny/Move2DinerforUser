@@ -94,7 +94,6 @@ public class ActivityTruckInfo extends AppCompatActivity {
             primaryKey = uri.getQueryParameter("PrimaryKey");
 
         }
-        System.out.println("체크 : " + primaryKey);
         if (primaryKey == null) {
             Toast.makeText(
                     this, "경로가 잘못되었습니다", Toast.LENGTH_SHORT).show();
@@ -103,7 +102,7 @@ public class ActivityTruckInfo extends AppCompatActivity {
 
         setContentView(R.layout.activity_truck_info);
 
-        BaseApplication.getInstance().progressON(ActivityTruckInfo.this, "트럭 정보 로딩중");
+        BaseApplication.getInstance().progressON(ActivityTruckInfo.this, "데이터 로딩중...");
 
         initView();
 
@@ -157,7 +156,7 @@ public class ActivityTruckInfo extends AppCompatActivity {
                 collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
                 collapsingToolbarLayout.setTitle(itemTruckDes.getTruckName());
                 collapsingToolbarLayout.setExpandedTitleTextAppearance(R.style.CollapsedAppBar);
-                collapsingToolbarLayout.setExpandedTitleMargin(0,2,0,8);
+                collapsingToolbarLayout.setExpandedTitleMargin(0, 2, 0, 8);
 
                 loadImageSlide(); //이미지 슬라이드 가져오기
                 settingData(); //초기 세팅
@@ -368,7 +367,7 @@ public class ActivityTruckInfo extends AppCompatActivity {
 
     private void loadMenuInfo() {
 
-        Query menuQuery = truckdatabase.getReference().child("trucks").child("menu").child(primaryKey);
+        Query menuQuery = truckdatabase.getReference().child("trucks/menu/" + primaryKey);
         menuQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -389,7 +388,7 @@ public class ActivityTruckInfo extends AppCompatActivity {
     private void loadImageSlide() {
 
         //슬라이드 가져오기
-        Query imageQuery = truckdatabase.getReference().child("trucks").child("pictures").child(primaryKey);
+        Query imageQuery = truckdatabase.getReference().child("trucks/pictures/" + primaryKey);
         imageQuery.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -483,7 +482,7 @@ public class ActivityTruckInfo extends AppCompatActivity {
 
         alert.setPositiveButton("확인", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
-
+                BaseApplication.getInstance().progressON(ActivityTruckInfo.this, "저장중...");
                 long curr = System.currentTimeMillis();
                 SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd hh:mm");
                 String datetime2 = sdf2.format(new Date(curr));
@@ -499,15 +498,52 @@ public class ActivityTruckInfo extends AppCompatActivity {
                         auth.getCurrentUser().getUid(), _photoUrl,
                         itemTruckDes.getTruckName(), primaryKey, itemTruckDes.getTruckDes(), itemTruckDes.getThumbnail());
                 //리뷰를 작성할때 현재시간, 내용, 사용자닉네임, 사용자uid,  사용자 썸네일, 트럭이름,트럭Uid, 트럭정보, 트럭썸네일을 넣는다
-
                 database.getReference().child("reviews").child(auth.getCurrentUser().getUid()).child(primaryKey)
                         .setValue(newitem);
+
+                database.getReference().child("recentreview/11111").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String truckKey = dataSnapshot.child("truckKey").getValue().toString();
+                        String userKey = dataSnapshot.child("userKey").getValue().toString();
+                        database.getReference().child("recentreview/22222/truckKey").setValue(truckKey);
+                        database.getReference().child("recentreview/22222/userKey").setValue(userKey);
+
+                        database.getReference().child("recentreview/11111/truckKey").setValue(primaryKey);
+                        database.getReference().child("recentreview/11111/userKey").setValue(auth.getCurrentUser().getUid());
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+                database.getReference().child("recentreview/22222").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String truckKey = dataSnapshot.child("truckKey").getValue().toString();
+                        String userKey = dataSnapshot.child("userKey").getValue().toString();
+                        database.getReference().child("recentreview/33333/truckKey").setValue(truckKey);
+                        database.getReference().child("recentreview/33333/userKey").setValue(userKey);
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
 
                 //DB에 저장하고 바로 아이템 추가해서 보여줘야지
                 reviewListItems.add(newitem);
                 reviewAdapter.notifyDataSetChanged();
-
+                BaseApplication.getInstance().progressOFF();
                 Toast.makeText(ActivityTruckInfo.this, "리뷰가 저장됐습니다", Toast.LENGTH_SHORT).show();
+
+
             }
         });
         alert.setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -574,7 +610,6 @@ public class ActivityTruckInfo extends AppCompatActivity {
 
             @Override
             public void onSuccess(KakaoLinkResponse result) {
-                System.out.println("카카오톡 공유 성공");
             }
         });
 

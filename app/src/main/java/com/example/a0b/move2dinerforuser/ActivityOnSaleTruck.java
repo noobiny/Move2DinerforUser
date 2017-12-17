@@ -61,7 +61,7 @@ public class ActivityOnSaleTruck extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_sale_truck);
         new CustomTitlebar(this, "현재 영업중인 트럭");
-        BaseApplication.getInstance().progressON(this, "로딩중");
+        BaseApplication.getInstance().progressON(this, "로딩중...");
         initView();
 
         onsale_spinnersort.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

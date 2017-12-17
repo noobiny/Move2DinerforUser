@@ -36,7 +36,7 @@ public class ActivityMain extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        BaseApplication.getInstance().progressON(ActivityMain.this, "데이터 로딩중입니다");
+        BaseApplication.getInstance().progressON(ActivityMain.this, "데이터 로딩중...");
         viewPager = (SwipeViewPager) findViewById(R.id.viewPager);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomNavi);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);

@@ -158,7 +158,7 @@ public class ActivityUserInfo extends AppCompatActivity implements View.OnClickL
         //데이터 가져오기
         tv_user_nick.setText(auth.getCurrentUser().getDisplayName());
 
-        BaseApplication.getInstance().progressON(ActivityUserInfo.this, "데이터 로딩중");
+        BaseApplication.getInstance().progressON(ActivityUserInfo.this, "데이터 로딩중...");
         //사진 데이터 가져올때 Glide 사용해야해
         if (auth.getCurrentUser().getPhotoUrl() != null) {
             Glide.with(this).load(auth.getCurrentUser().getPhotoUrl()).bitmapTransform(new CropCircleTransformation(new CustomBitmapPool())).into(iv_user_photo);

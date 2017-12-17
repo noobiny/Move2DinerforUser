@@ -3,7 +3,7 @@
     android:id="@+id/item_truck_info_layout"
     android:layout_width="170dp"
     android:layout_height="190dp"
-    android:layout_marginRight="10dp">
+    android:layout_marginRight="8dp">
 
     <LinearLayout
         android:layout_width="match_parent"

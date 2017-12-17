@@ -84,7 +84,6 @@ public class MapPagerAdapter extends PagerAdapter {
         StringBuilder sb = new StringBuilder();
         if (mResources.get(position).getTags() != null) {
             for (int i = 0; i < mResources.get(position).getTags().size(); i++) {
-                System.out.println(i + " " + mResources.get(position).getTags().get(i));
                 sb.append("#" + mResources.get(position).getTags().get(i) + "  ");
             }
 

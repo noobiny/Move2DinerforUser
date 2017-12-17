@@ -13,10 +13,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.example.a0b.move2dinerforuser.Adapter.AdapterRecentReview;
 import com.example.a0b.move2dinerforuser.Adapter.AdapterTruckIntro;
 import com.example.a0b.move2dinerforuser.Adapter.ImageSliderAdapter;
 import com.example.a0b.move2dinerforuser.BaseApplication;
 import com.example.a0b.move2dinerforuser.DTO.ItemTruckDes;
+import com.example.a0b.move2dinerforuser.DTO.ReviewListItem;
 import com.example.a0b.move2dinerforuser.R;
 import com.example.a0b.move2dinerforuser.RecyclerViewEmptySupport;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
@@ -37,7 +39,6 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
     private ArrayList<String> images = new ArrayList<>();
 
-//    private Button btn_viewonsaletruck;
 
     private ArrayList<ItemTruckDes> bestTrucks = new ArrayList<>();
     private ArrayList<String> bestTruckKeys = new ArrayList<>();
@@ -45,11 +46,14 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     private AdapterTruckIntro bestAdapter;
     private LinearLayoutManager bestManager;
 
-//    private AdapterTruckIntro onSaleAdapter;
-//    private LinearLayoutManager onSaleManager;
-//    private RecyclerViewEmptySupport recycler_onSaleTruck;
-//    private ArrayList<ItemTruckDes> onSaleTrucks = new ArrayList<>();
-//    private ArrayList<String> onSaleTruckKeys = new ArrayList<>();
+
+    private RecyclerViewEmptySupport recycler_recentreview;
+    private AdapterRecentReview reviewAdapter;
+    private LinearLayoutManager reviewManager;
+    private ArrayList<ReviewListItem> reviewListItems = new ArrayList<>();
+    private ArrayList<String> truckKeys = new ArrayList<>();
+    private ArrayList<String> userKeys = new ArrayList<>();
+
 
     private AutoScrollViewPager homeslider;
     private LinearLayout pager_indicator;
@@ -73,22 +77,18 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
         homeslider = (AutoScrollViewPager) rootView.findViewById(R.id.homeslider);
         bestRecycler = (RecyclerViewEmptySupport) rootView.findViewById(R.id.recycler_TruckInfo);
-//        recycler_onSaleTruck = (RecyclerViewEmptySupport) rootView.findViewById(R.id.recycler_onSaleTruck);
         pager_indicator = (LinearLayout) rootView.findViewById(R.id.viewPagerCountDots);
-//        btn_viewonsaletruck = (Button) rootView.findViewById(R.id.btn_viewonsaletruck);
+        recycler_recentreview = rootView.findViewById(R.id.recycler_recentreview);
 
-
-        //startTime 역순으로 정렬렬
-//        onSaleAdapter = new AdapterTruckIntro(onSaleTrucks, onSaleTruckKeys, getContext());
-//        onSaleManager = new LinearLayoutManager(getContext());
-//        onSaleManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-//        recycler_onSaleTruck.setLayoutManager(onSaleManager);
-//        recycler_onSaleTruck.setEmptyView(rootView.findViewById(R.id.empty_onsale));
-//        recycler_onSaleTruck.setAdapter(onSaleAdapter);
+        reviewAdapter = new AdapterRecentReview(reviewListItems, getContext());
+        reviewManager = new LinearLayoutManager(getContext());
+        recycler_recentreview.setLayoutManager(reviewManager);
+        recycler_recentreview.setEmptyView(rootView.findViewById(R.id.empty_recentreview));
+        recycler_recentreview.setAdapter(reviewAdapter);
 
 
         bestAdapter = new AdapterTruckIntro(bestTrucks, bestTruckKeys, getContext());
-        bestManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
+        bestManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
         bestManager.setAutoMeasureEnabled(true);
 
         //파베에서 내림차순 지원안해서 매니저 거꾸로
@@ -101,49 +101,90 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         bestRecycler.setEmptyView(rootView.findViewById(R.id.empty_TruckInfo));
         bestRecycler.setAdapter(bestAdapter);
 
-//        btn_viewonsaletruck.setOnClickListener(this);
-
         imageSliderAdapter = new ImageSliderAdapter(getContext(), images);
 
         setItemsList();
 
-//        setOnSaleTrucks();
+        setRecentReview();
 
         setHomeSlider();
 
         return rootView;
     }
 
-//    private void setOnSaleTrucks() {
-//        Query query = database.getReference().child("trucks").child("info");
-//        query.orderByKey().addListenerForSingleValueEvent(new ValueEventListener() {
-//
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                int count = 0;
-//                onSaleTrucks.clear();
-//                onSaleTruckKeys.clear();
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    ItemTruckDes itemTruckDes = snapshot.getValue(ItemTruckDes.class);
-//
-//                    if (itemTruckDes.getOnBusiness() == false)
-//                        continue;
-//
-//                    onSaleTrucks.add(itemTruckDes);
-//                    onSaleTruckKeys.add(snapshot.getKey());
-//                    if (count++ == 3) {
-//                        break;
-//                    }
-//                }
-//                onSaleAdapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-//    }
+    private void setRecentReview() {
+
+        reviewListItems.clear();
+        database.getReference().child("recentreview/11111").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String truckKey = dataSnapshot.child("truckKey").getValue().toString();
+                String userKey = dataSnapshot.child("userKey").getValue().toString();
+
+                getReviewData(truckKey, userKey);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        database.getReference().child("recentreview/22222").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String truckKey = dataSnapshot.child("truckKey").getValue().toString();
+                String userKey = dataSnapshot.child("userKey").getValue().toString();
+                getReviewData(truckKey, userKey);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        database.getReference().child("recentreview/33333").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String truckKey = dataSnapshot.child("truckKey").getValue().toString();
+                String userKey = dataSnapshot.child("userKey").getValue().toString();
+
+                getReviewData(truckKey, userKey);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void getReviewData(final String truckKey, final String userKey) {
+
+        database.getReference().child("reviews/").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild(userKey)) {
+                    if (dataSnapshot.child(userKey).hasChild(truckKey)) {
+                        reviewListItems.add(dataSnapshot.child(userKey + "/" + truckKey + "/").getValue(ReviewListItem.class));
+                        reviewAdapter.notifyDataSetChanged();
+                    } else {
+                        return;
+                    }
+                } else {
+                    return;
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
+
 
     private void setHomeSlider() {
         Query sliderimages = database.getReference().child("homesliderimages");

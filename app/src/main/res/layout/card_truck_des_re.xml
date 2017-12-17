@@ -3,6 +3,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
     android:padding="3dp">
 
     <android.support.v7.widget.CardView
@@ -37,8 +38,8 @@
                     android:layout_marginTop="5dp"
                     android:text="스윗 츄러스"
                     android:textAlignment="center"
-                    android:textColor="#65B5A5"
-                    android:textSize="14dp"
+                    android:textColor="#000000"
+                    android:textSize="15dp"
                     android:textStyle="bold" />
 
                 <RelativeLayout
@@ -115,7 +116,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@id/layout2"
-                        android:paddingTop="2dp"
                         android:visibility="visible">
 
                         <ImageView
@@ -140,11 +140,11 @@
                 </RelativeLayout>
 
                 <TextView
-                    android:textAlignment="center"
                     android:id="@+id/cardtruck_tags"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/dummy2" />
+                    android:layout_below="@id/dummy2"
+                    android:textAlignment="center" />
             </RelativeLayout>
 
 

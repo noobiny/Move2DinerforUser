@@ -35,7 +35,7 @@ public class ActivityMyTruck extends AppCompatActivity {
         new CustomTitlebar(this, "내가 찜한 트럭");
 
         initView();
-        BaseApplication.getInstance().progressON(ActivityMyTruck.this, "로딩중");
+        BaseApplication.getInstance().progressON(ActivityMyTruck.this, "로딩중...");
         printFavList();
 
     }

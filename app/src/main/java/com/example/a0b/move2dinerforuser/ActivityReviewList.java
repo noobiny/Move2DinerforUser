@@ -35,7 +35,7 @@ public class ActivityReviewList extends AppCompatActivity {
         setContentView(R.layout.activity_review_list);
         new CustomTitlebar(this, "내가 작성한 리뷰");
 
-        BaseApplication.getInstance().progressON(ActivityReviewList.this, "리뷰정보 로딩중");
+        BaseApplication.getInstance().progressON(ActivityReviewList.this, "데이터 로딩중...");
 
         initView();
         printReviewList();

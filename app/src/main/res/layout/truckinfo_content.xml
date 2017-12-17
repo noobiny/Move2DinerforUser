@@ -183,6 +183,7 @@
                 android:id="@+id/tv_truck_des"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical"
                 android:textColor="#000000"
                 android:textSize="12dp" />
         </LinearLayout>
@@ -207,9 +208,12 @@
                 android:id="@+id/tv_truck_tags"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center|center_vertical"
                 android:textColor="#000000"
                 android:textSize="12dp" />
+
         </LinearLayout>
+
 
         <TextView
             android:id="@+id/textView5"
