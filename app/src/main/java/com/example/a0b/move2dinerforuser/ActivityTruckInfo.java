@@ -174,6 +174,14 @@ public class ActivityTruckInfo extends AppCompatActivity {
 
     private void initView() {
 
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(getResources(), R.drawable.credit_card, options);
+        BitmapFactory.decodeResource(getResources(),R.drawable.kakaotalk_icon,options);
+        BitmapFactory.decodeResource(getResources(),R.drawable.write_review,options);
+        BitmapFactory.decodeResource(getResources(),R.drawable.ic_favorite_border_black_24dp,options);
+
+
         truckinfo_offbusi_img = findViewById(R.id.truckinfo_offbusi_img);
         truckinfo_onbusi_img = findViewById(R.id.truckinfo_onbusi_img);
 
@@ -195,6 +203,11 @@ public class ActivityTruckInfo extends AppCompatActivity {
         tv_truck_tags = (TextView) findViewById(R.id.tv_truck_tags);
         lottieAnimationView = (LottieAnimationView) findViewById(R.id.animation_view);
 
+        truckinfo_iv3.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.credit_card, 25, 25));
+        tv_truck_share.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.kakaotalk_icon, 35, 35));
+        tv_truck_writereview.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.write_review, 34, 34));
+        iv_truck_favorite.setImageBitmap(decodeSampledBitmapFromResource(getResources(),R.drawable.ic_favorite_border_black_24dp,38,38));
+
         reviewAdapter = new AdapterTruckReview(reviewListItems, reviewKeys, this);
         recycler_review.setLayoutManager(new LinearLayoutManager(this));
         recycler_review.setAdapter(reviewAdapter);
@@ -205,18 +218,6 @@ public class ActivityTruckInfo extends AppCompatActivity {
         recycle_menuinfo.setAdapter(menuAdapter);
         recycle_menuinfo.setEmptyView(findViewById(R.id.empty_menu));
 
-        BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        BitmapFactory.decodeResource(getResources(), R.drawable.credit_card, options);
-        BitmapFactory.decodeResource(getResources(),R.drawable.kakaotalk_icon,options);
-        BitmapFactory.decodeResource(getResources(),R.drawable.write_review,options);
-        BitmapFactory.decodeResource(getResources(),R.drawable.ic_favorite_border_black_24dp,options);
-
-
-        truckinfo_iv3.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.credit_card, 25, 25));
-        tv_truck_share.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.kakaotalk_icon, 35, 35));
-        tv_truck_writereview.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.write_review, 34, 34));
-        iv_truck_favorite.setImageBitmap(decodeSampledBitmapFromResource(getResources(),R.drawable.ic_favorite_border_black_24dp,38,38));
 
     }
 

@@ -98,10 +98,10 @@ public class AdapterTruckDes extends RecyclerView.Adapter<AdapterTruckDes.ItemHo
                 sb.append("#" + items.get(position).getTags().get(i) + "  ");
             }
 
-            if (sb.toString().trim().equals("") && items.get(position).getRecentAddress() != null) {
-                String[] splited = items.get(position).getRecentAddress().split(" ");
-                sb.append("#" + splited[2]);
-            }
+//            if (sb.toString().trim().equals("") && items.get(position).getRecentAddress() != null) {
+//                String[] splited = items.get(position).getRecentAddress().split(" ");
+//                sb.append("#" + splited[2]);
+//            }
             holder.cardtruck_tags.setText(sb.toString());
         }
 

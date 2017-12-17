@@ -1,5 +1,6 @@
 package com.example.a0b.move2dinerforuser.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,10 +11,12 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
+import com.example.a0b.move2dinerforuser.ActivityTruckDes;
 import com.example.a0b.move2dinerforuser.Adapter.AdapterRecentReview;
 import com.example.a0b.move2dinerforuser.Adapter.AdapterTruckIntro;
 import com.example.a0b.move2dinerforuser.Adapter.ImageSliderAdapter;
@@ -35,6 +38,8 @@ import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 
 public class FragmentHome extends Fragment implements View.OnClickListener {
+
+    private Button btn_alltruck;
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -76,6 +81,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
 
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
+        btn_alltruck = rootView.findViewById(R.id.btn_alltruck);
         homeslider = (AutoScrollViewPager) rootView.findViewById(R.id.homeslider);
         bestRecycler = (RecyclerViewEmptySupport) rootView.findViewById(R.id.recycler_TruckInfo);
         pager_indicator = (LinearLayout) rootView.findViewById(R.id.viewPagerCountDots);
@@ -109,6 +115,15 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         setRecentReview();
 
         setHomeSlider();
+
+
+        btn_alltruck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ActivityTruckDes.class));
+
+            }
+        });
 
         return rootView;
     }

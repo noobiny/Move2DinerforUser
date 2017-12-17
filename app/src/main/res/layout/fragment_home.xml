@@ -59,6 +59,18 @@
                     android:textSize="17dp"
                     android:textStyle="bold" />
 
+                <Button
+                    android:id="@+id/btn_alltruck"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="#0000"
+                    android:text="전체보기 >"
+                    android:textColor="#5D5D5D"
+                    android:textSize="15sp" />
+
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -72,9 +84,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#d0d0d0"
-                    android:paddingTop="1dp"
                     android:paddingBottom="1dp"
-                    android:paddingLeft="5dp" />
+                    android:paddingLeft="5dp"
+                    android:paddingTop="1dp" />
 
                 <TextView
                     android:id="@+id/empty_TruckInfo"
@@ -125,8 +137,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#d0d0d0"
-                    android:paddingTop="5dp"
-                    android:nestedScrollingEnabled="false" />
+                    android:nestedScrollingEnabled="false"
+                    android:paddingTop="5dp" />
 
                 <TextView
                     android:id="@+id/empty_recentreview"
