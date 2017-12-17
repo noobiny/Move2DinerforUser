@@ -12,6 +12,7 @@
     <uses-feature android:name="android.hardware.camera2" />
 
     <application
+        android:largeHeap="true"
         android:name=".BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/m2d_logo1"

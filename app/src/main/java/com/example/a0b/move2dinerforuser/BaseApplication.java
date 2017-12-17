@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.bumptech.glide.Glide;
 
 public class BaseApplication extends Application {
 
@@ -25,6 +26,19 @@ public class BaseApplication extends Application {
         baseApplication = this;
 
 
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        Glide.get(this).clearMemory();
+
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        Glide.get(this).trimMemory(level);
     }
 
     public void progressON(Activity activity, String message) {

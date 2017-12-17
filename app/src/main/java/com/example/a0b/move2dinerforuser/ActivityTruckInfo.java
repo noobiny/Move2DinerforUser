@@ -2,6 +2,9 @@ package com.example.a0b.move2dinerforuser;
 
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -56,7 +59,7 @@ import static com.kakao.message.template.LinkObject.newBuilder;
 
 public class ActivityTruckInfo extends AppCompatActivity {
     private int favcount;
-    private ImageView img_thumbnail, iv_truck_favorite, tv_truck_share, tv_truck_writereview, truckinfo_offbusi_img, truckinfo_onbusi_img;
+    private ImageView img_thumbnail, truckinfo_iv3, iv_truck_favorite, tv_truck_share, tv_truck_writereview, truckinfo_offbusi_img, truckinfo_onbusi_img;
     private String primaryKey;
     private Boolean isHeart;
     private ViewPager img_slider;
@@ -86,6 +89,7 @@ public class ActivityTruckInfo extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_truck_info);
 
         primaryKey = getIntent().getStringExtra("PrimaryKey");
 
@@ -99,8 +103,6 @@ public class ActivityTruckInfo extends AppCompatActivity {
                     this, "경로가 잘못되었습니다", Toast.LENGTH_SHORT).show();
             return;
         }
-
-        setContentView(R.layout.activity_truck_info);
 
         BaseApplication.getInstance().progressON(ActivityTruckInfo.this, "데이터 로딩중...");
 
@@ -177,7 +179,7 @@ public class ActivityTruckInfo extends AppCompatActivity {
 
         truckinfo_card = findViewById(R.id.truckinfo_card);
         truckinfo_onbusi = findViewById(R.id.truckinfo_onbusi);
-
+        truckinfo_iv3 = findViewById(R.id.truckinfo_iv3);
         tv_truck_writereview = (ImageView) findViewById(R.id.tv_truck_writereview);
         tv_truck_share = (ImageView) findViewById(R.id.tv_truck_share);
         truckinfo_recent_location = (TextView) findViewById(R.id.truckinfo_recent_location);
@@ -203,7 +205,58 @@ public class ActivityTruckInfo extends AppCompatActivity {
         recycle_menuinfo.setAdapter(menuAdapter);
         recycle_menuinfo.setEmptyView(findViewById(R.id.empty_menu));
 
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(getResources(), R.drawable.credit_card, options);
+        BitmapFactory.decodeResource(getResources(),R.drawable.kakaotalk_icon,options);
+        BitmapFactory.decodeResource(getResources(),R.drawable.write_review,options);
+        BitmapFactory.decodeResource(getResources(),R.drawable.ic_favorite_border_black_24dp,options);
 
+
+        truckinfo_iv3.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.credit_card, 25, 25));
+        tv_truck_share.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.kakaotalk_icon, 35, 35));
+        tv_truck_writereview.setImageBitmap(decodeSampledBitmapFromResource(getResources(), R.drawable.write_review, 34, 34));
+        iv_truck_favorite.setImageBitmap(decodeSampledBitmapFromResource(getResources(),R.drawable.ic_favorite_border_black_24dp,38,38));
+
+    }
+
+    public static int calculateInSampleSize(
+            BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        // Raw height and width of image
+        final int height = options.outHeight;
+        final int width = options.outWidth;
+        int inSampleSize = 1;
+
+        if (height > reqHeight || width > reqWidth) {
+
+            final int halfHeight = height / 2;
+            final int halfWidth = width / 2;
+
+            // Calculate the largest inSampleSize value that is a power of 2 and keeps both
+            // height and width larger than the requested height and width.
+            while ((halfHeight / inSampleSize) > reqHeight
+                    && (halfWidth / inSampleSize) > reqWidth) {
+                inSampleSize *= 2;
+            }
+        }
+
+        return inSampleSize;
+    }
+
+    public static Bitmap decodeSampledBitmapFromResource(Resources res, int resId,
+                                                         int reqWidth, int reqHeight) {
+
+        // First decode with inJustDecodeBounds=true to check dimensions
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeResource(res, resId, options);
+
+        // Calculate inSampleSize
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+
+        // Decode bitmap with inSampleSize set
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeResource(res, resId, options);
     }
 
     private void connectEvent() {
@@ -401,21 +454,19 @@ public class ActivityTruckInfo extends AppCompatActivity {
                     img_thumbnail.setVisibility(View.VISIBLE);
                     sliderIndicator.setVisibility(View.INVISIBLE);
                     if (auth.getCurrentUser().getPhotoUrl() != null) {
+
                         Glide.with(ActivityTruckInfo.this).load(itemTruckDes.getThumbnail()).into(img_thumbnail);
                     }
                     BaseApplication.getInstance().progressOFF();
                     return;
                 }
 
-                ImageSliderAdapter imageSliderAdapter = new ImageSliderAdapter(ActivityTruckInfo.this, slideImages);
+                ImageSliderAdapter imageSliderAdapter = new ImageSliderAdapter(ActivityTruckInfo.this, slideImages, Glide.with(ActivityTruckInfo.this));
                 sliderIndicator.setText((img_slider.getCurrentItem() + 1) + " / " + slideImages.size());
                 img_slider.setAdapter(imageSliderAdapter);
                 img_slider.setPageTransformer(false, new ViewPager.PageTransformer() {
                     @Override
                     public void transformPage(View page, float position) {
-                        //position 값이 왼쪽, 오른쪽 이동방향에 따라 음수와 양수가 나오므로 절대값 Math.abs()으로 계산
-                        //position의 변동폭이 (-2.0 ~ +2.0) 사이이기에 부호 상관없이 (0.0~1.0)으로 변경폭 조절
-                        //주석으로 수학적 연산을 설명하기에는 한계가 있으니 코드를 보고 잘 생각해 보시기 바랍니다.
                         float normalizedposition = Math.abs(1 - Math.abs(position));
                         page.setAlpha(normalizedposition);  //View의 투명도 조절
                         page.setScaleX(normalizedposition / 2 + 0.5f); //View의 x축 크기조절
@@ -674,6 +725,11 @@ public class ActivityTruckInfo extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+    }
 
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 }

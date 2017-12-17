@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.example.a0b.move2dinerforuser.R;
 
 import java.util.ArrayList;
@@ -18,8 +18,10 @@ public class ImageSliderAdapter extends PagerAdapter {
     Context mContext;
     LayoutInflater mLayoutInflater;
     ArrayList<String> mResources;
+    private final RequestManager glide;
 
-    public ImageSliderAdapter(Context context, ArrayList<String> mResources) {
+    public ImageSliderAdapter(Context context, ArrayList<String> mResources, RequestManager glide) {
+        this.glide = glide;
         mContext = context;
         this.mResources = mResources;
         mLayoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -28,6 +30,7 @@ public class ImageSliderAdapter extends PagerAdapter {
     public int getItemPosition(Object object) {
         return POSITION_NONE;
     }
+
     @Override
     public int getCount() {
         return Integer.MAX_VALUE;
@@ -43,18 +46,18 @@ public class ImageSliderAdapter extends PagerAdapter {
 
         View itemView = mLayoutInflater.inflate(R.layout.viewpager_image, container, false);
 
-        int realPos=position%mResources.size();
+        int realPos = position % mResources.size();
         ImageView imageView = (ImageView) itemView.findViewById(R.id.img_viewpager_childimage);
-        Glide.with(mContext).load(mResources.get(realPos)).placeholder(R.drawable.loadingimage).error(R.drawable.loadingimage).into(imageView);
+        glide.load(mResources.get(realPos)).placeholder(R.drawable.loadingimage).error(R.drawable.loadingimage).into(imageView);
 
-        container.addView(itemView,0);
+        container.addView(itemView, 0);
 
         return itemView;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-         container.removeView((LinearLayout) object);
+        container.removeView((LinearLayout) object);
     }
 
 }

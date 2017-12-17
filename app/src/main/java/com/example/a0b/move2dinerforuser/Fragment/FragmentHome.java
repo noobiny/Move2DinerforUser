@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.bumptech.glide.Glide;
 import com.example.a0b.move2dinerforuser.Adapter.AdapterRecentReview;
 import com.example.a0b.move2dinerforuser.Adapter.AdapterTruckIntro;
 import com.example.a0b.move2dinerforuser.Adapter.ImageSliderAdapter;
@@ -101,7 +102,7 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
         bestRecycler.setEmptyView(rootView.findViewById(R.id.empty_TruckInfo));
         bestRecycler.setAdapter(bestAdapter);
 
-        imageSliderAdapter = new ImageSliderAdapter(getContext(), images);
+        imageSliderAdapter = new ImageSliderAdapter(getContext(), images, Glide.with(getContext()));
 
         setItemsList();
 
@@ -278,9 +279,6 @@ public class FragmentHome extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.btn_viewonsaletruck:
-//                startActivity(new Intent(getContext(), ActivityOnSaleTruck.class));
-//                break;
         }
     }
 
